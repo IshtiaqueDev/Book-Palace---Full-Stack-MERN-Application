@@ -1,0 +1,37 @@
+.custom-card {
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.35s ease;
+  background: #fff;
+}
+
+.custom-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  border-color: rgba(233, 92, 5, 0.2);
+}
+
+.custom-card img {
+  transition: transform 0.5s ease;
+}
+
+.custom-card:hover img {
+  transform: scale(1.08);
+}
+
+.custom-card .card-body {
+  transition: all 2s ease;
+}
+
+.custom-card:hover .card-body {
+  background-color: #fafafa;
+}
+
+.custom-card .btn {
+  transition: all 2s ease;
+}
+
+.custom-card:hover .btn {
+  transform: translateY(-8px);
+}
