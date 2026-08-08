@@ -41,7 +41,7 @@ const Card = () => {
         </div>
 
         <button className="btn btn-dark mt-auto rounded-3">
-          View Details
+          <a href="/viewDetail">View Details</a>
         </button>
 
       </div>

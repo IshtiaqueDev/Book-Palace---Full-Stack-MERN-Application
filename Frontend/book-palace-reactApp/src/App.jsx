@@ -3,16 +3,29 @@ import {Route , Routes} from 'react-router-dom'
 import Navbar from './components/Navbar'
 import HomePage from "./Pages/HomePage";
 import LoginPage from './Pages/LoginPage';
+import SignUp from './Pages/SignUp';
+import Footer from './components/Footer';
+import AddBook from './Pages/AddBook';
+import ErrorPage from './Pages/ErrorPage';
 
 function App() {
 
   return (
     <>
+    <div className="min-vh-100 d-flex flex-column">
     <Navbar/>
+    <main className="flex-grow-1">
     <Routes>
-      <Route path='/' element={ <HomePage/>}></Route>
+      <Route path='/books' element={ <HomePage/>}>
+        <Route path='add' element={<AddBook/>}></Route>
+      </Route>
       <Route path='/login' element={<LoginPage/>}></Route>
+      <Route path='/signup' element={<SignUp/>}></Route>
+      <Route path="*" element={<ErrorPage/>}></Route>
     </Routes>
+    </main>
+    <Footer/>
+    </div>
     </>
   )
 }

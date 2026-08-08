@@ -5,14 +5,14 @@ const SortBy = () => {
     <div>
     <div className="dropdown">
     <button className="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Sort By
+    Categories
     </button>
     <ul className="dropdown-menu">
-    <li><button className="dropdown-item" type="button">Top Rated</button></li>
-    <li><button className="dropdown-item" type="button">Most Popular</button></li>
-    <li><button className="dropdown-item" type="button">A-Z</button></li>
-    <li><button className="dropdown-item" type="button">Z-A</button></li>
-    <li><button className="dropdown-item" type="button">Most Reviewed</button></li>
+    <li><button className="dropdown-item" type="button">Self-Development</button></li>
+    <li><button className="dropdown-item" type="button">Life Lessons</button></li>
+    <li><button className="dropdown-item" type="button">Novels</button></li>
+    <li><button className="dropdown-item" type="button">Stories</button></li>
+    <li><button className="dropdown-item" type="button">Others</button></li>
   </ul>
     </div>
     </div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -6,7 +7,7 @@ const Navbar = () => {
   <div className="container">
 
     {/* Brand */}
-    <a className="navbar-brand fw-bold fs-4" href="/">
+    <a className="navbar-brand fw-bold fs-4" href="/books">
       <i className="fa-solid fa-book text-dark me-2"></i>
       BooksPalace
     </a>
@@ -41,7 +42,7 @@ const Navbar = () => {
       <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-4">
 
         <li className="nav-item">
-          <a className="nav-link fw-medium" href="#">
+          <a className="nav-link fw-medium" href="add">
             Add Book
           </a>
         </li>
@@ -57,7 +58,7 @@ const Navbar = () => {
       </ul>
     </div>
 
-  </div>
+  </div>  
 </nav>  )
 }
 
