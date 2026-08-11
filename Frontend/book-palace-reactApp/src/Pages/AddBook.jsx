@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Outlet } from 'react-router-dom';
 
 const AddBook = () => {
   const initialState={
@@ -37,7 +36,6 @@ let[validated,setValidation]=useState(false);
 
   return (
     <div className="container my-5">
-    <Outlet/>
       <div className="row justify-content-center">
         <div className="col-12 col-md-8">
           <h3 className="mb-2">Add New Book</h3>

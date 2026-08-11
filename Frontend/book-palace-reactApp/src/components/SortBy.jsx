@@ -1,20 +1,35 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
-const SortBy = () => {
+const SortBy = ({ value = '', onChange = () => {} }) => {
+  const [selected, setSelected] = useState(value)
+  const [searchParams,setSearchParams]=useSearchParams();
+
+  useEffect(() => {
+    setSelected(value)
+  }, [value])
+
+  const handleChange = (e) => {
+    setSelected(e.target.value)
+    onChange(e)
+    setSearchParams({category:e.target.value})
+  }
+
   return (
     <div>
-    <div className="dropdown">
-    <button className="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Categories
-    </button>
-    <ul className="dropdown-menu">
-    <li><button className="dropdown-item" type="button">Self-Development</button></li>
-    <li><button className="dropdown-item" type="button">Life Lessons</button></li>
-    <li><button className="dropdown-item" type="button">Novels</button></li>
-    <li><button className="dropdown-item" type="button">Stories</button></li>
-    <li><button className="dropdown-item" type="button">Others</button></li>
-  </ul>
-    </div>
+      <select
+        className="form-select"
+        value={selected}
+        onChange={handleChange}
+        aria-label="Categories select"
+      >
+        <option value="">Categories</option>
+        <option value="self-development">Self-Development</option>
+        <option value="life-lessons">Life Lessons</option>
+        <option value="novels">Novels</option>
+        <option value="stories">Stories</option>
+        <option value="others">Others</option>
+      </select>
     </div>
   )
 }

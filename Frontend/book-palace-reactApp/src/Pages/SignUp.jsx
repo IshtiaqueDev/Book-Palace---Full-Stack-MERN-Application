@@ -1,14 +1,39 @@
 import React, { useState } from 'react'
 
 const SignUp = () => {
-    let[validated,setValidation]=useState(false);
+   let initialState={ username: "",email:"", password: "" }
+       let [userData, setUserData] = useState(initialState)
+       let [validated, setValidation] = useState(false)
+   
+       const changeInput=(e)=>{
+       setUserData((prevData)=>(
+         {
+           ...prevData,[e.target.name]:e.target.value
+         }
+       ))
+     }
+   
+     const handleSubmit=(e)=>{
+       e.preventDefault();
+       const form=e.currentTarget;
+        if (!form.checkValidity()) {
+               setValidation(true);
+               return;
+           }
+   
+           console.log(userData);
+       setUserData(initialState);
+       setValidation((false))
+       
+     }
+   
   return (
        <div className='text-center mt-5'>
             <h3>Signup Page</h3>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-5 col-lg-4">
-                        <form className={validated ? 'was-validated' : 'needs-validation'} noValidate>
+                        <form className={validated ? 'was-validated' : 'needs-validation'} onSubmit={handleSubmit} noValidate>
                             <div className="mb-3 text-start">
                                 <label htmlFor="username" className="form-label">Username</label>
                                 <input
@@ -18,18 +43,22 @@ const SignUp = () => {
                                     className="form-control"
                                     name='username'
                                     required
+                                    value={userData.username}
+                                    onChange={changeInput}
                                 />
                             </div>
 
                              <div className="mb-3 text-start">
-                                <label htmlFor="username" className="form-label">Email:</label>
+                                <label htmlFor="email" className="form-label">Email:</label>
                                 <input
-                                    type="text"
-                                    id="username"
+                                    type="email"
+                                    id="email"
                                     placeholder="Enter your Email"
                                     className="form-control"
                                     name='email'
                                     required
+                                    value={userData.email}
+                                    onChange={changeInput}
                                 />
                             </div>
 
@@ -43,6 +72,8 @@ const SignUp = () => {
                                     className="form-control"
                                     name='password'
                                     required
+                                    value={userData.password}
+                                    onChange={changeInput}
                                 />
                             </div>
                             <p>Already signed in?  <a href="/login">Login Here</a></p>

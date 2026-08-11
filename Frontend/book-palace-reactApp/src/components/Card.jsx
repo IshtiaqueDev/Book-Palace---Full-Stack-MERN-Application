@@ -1,13 +1,13 @@
 import React from "react";
 
-const Card = () => {
+const Card = ({book}) => {
   return (
     <div
       className="card border-0 custom-card shadow-sm rounded-4 overflow-hidden h-100"
       style={{ width: "100%", transition: "0.3s ease" }}
     >
       <img
-        src="https://images.squarespace-cdn.com/content/v1/59c82ac46f4ca30b86d179bf/1706362642426-BI3J8PJ5LRJNO8H7WFV4/119.bookreview.AtomicHabits.jpg"
+        src={book.imageUrl}
         className="card-img-top"
         alt="Atomic Habits"
         style={{
@@ -19,11 +19,11 @@ const Card = () => {
       <div className="card-body d-flex flex-column">
 
         <h5 className="card-title fw-bold mb-1">
-          Atomic Habits
+          {book.title}
         </h5>
 
         <p className="text-secondary mb-3">
-          James Clear
+          {}
         </p>
 
            <span className="badge bg-warning text-dark align-self-start mb-2">

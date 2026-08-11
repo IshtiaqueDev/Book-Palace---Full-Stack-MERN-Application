@@ -42,7 +42,7 @@ const Navbar = () => {
       <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-4">
 
         <li className="nav-item">
-          <a className="nav-link fw-medium" href="add">
+          <a className="nav-link fw-medium" href="/books/add">
             Add Book
           </a>
         </li>
