@@ -23,11 +23,11 @@ const Card = ({book}) => {
         </h5>
 
         <p className="text-secondary mb-3">
-          {}
+          {book.author}
         </p>
 
            <span className="badge bg-warning text-dark align-self-start mb-2">
-          Self Development
+          {book.category}
         </span>
   
         <div className="d-flex justify-content-between align-items-center mb-4">
@@ -41,7 +41,7 @@ const Card = ({book}) => {
         </div>
 
         <button className="btn btn-dark mt-auto rounded-3">
-          <a href="/viewDetail">View Details</a>
+         View Details
         </button>
 
       </div>

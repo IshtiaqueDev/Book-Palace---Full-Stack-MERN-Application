@@ -1,9 +1,12 @@
 import React from 'react'
 import Card from '../components/Card'
 import SortBy from '../components/SortBy';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 const HomePage = () => {
+  const [searchParams,setSearchParams]=useSearchParams();
+  console.log(searchParams.get("category"));
+  
   const books = [
   {
     title: "The Silent Garden",
@@ -356,6 +359,12 @@ const HomePage = () => {
     category: "Life Lessons"
   }
 ];
+
+// const filteredBooks={
+//   searchParams.get("category")!=null ?
+
+//   : 
+// }
   return (
    <>
    <div className="container py-4">
@@ -366,7 +375,7 @@ const HomePage = () => {
     </div>
   {books.map((book, index) => (
     <div key={index} className="col-6 col-lg-3">
-      <Card books={book}/>
+      <Card book={book}/>
     </div>
   ))}
     </div>

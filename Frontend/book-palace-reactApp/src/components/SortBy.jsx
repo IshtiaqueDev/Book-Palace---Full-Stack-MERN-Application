@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-const SortBy = ({ value = '', onChange = () => {} }) => {
-  const [selected, setSelected] = useState(value)
-  const [searchParams,setSearchParams]=useSearchParams();
+const SortBy = ({ value = "", onChange }) => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const initial = searchParams.get('category') || value || ""
+  const [selected, setSelected] = useState(initial)
 
   useEffect(() => {
-    setSelected(value)
-  }, [value])
+    // keep component state in sync when URL changes externally
+    const cat = searchParams.get('category') || value || ""
+    if (cat !== selected) setSelected(cat)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams, value])
 
   const handleChange = (e) => {
-    setSelected(e.target.value)
-    onChange(e)
-    setSearchParams({category:e.target.value})
+    const val = e.target.value
+    setSelected(val)
+    if (typeof onChange === "function") onChange(e)
+
+    // preserve other query params while updating category
+    const params = Object.fromEntries(searchParams)
+    if (val) params.category = val
+    else delete params.category
+    setSearchParams(params)
   }
 
   return (
