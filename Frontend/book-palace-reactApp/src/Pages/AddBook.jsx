@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from "axios"
 
 const AddBook = () => {
   const initialState={
@@ -8,29 +9,34 @@ const AddBook = () => {
     author:"",
     category:""
   }
-let[formData,setFormData]=useState(initialState);
+let[bookData,setBookData]=useState(initialState);
 let[validated,setValidation]=useState(false);
 
 
   const changeInput=(e)=>{
-    setFormData((prevData)=>(
+    setBookData((prevData)=>(
       {
         ...prevData,[e.target.name]:e.target.value
       }
     ))
   }
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault();
     const form=e.currentTarget;
      if (!form.checkValidity()) {
             setValidation(true);
             return;
         }
-      setFormData(initialState);
+      setBookData(initialState);
+      try{
+        let addBook=await axios.post("http://localhost:5000/books/add",bookData);
+      }catch(err){
+        console.log(err);
+      }
       setValidation((false))
 
-    console.log(formData);
+    console.log(bookData);
     
   }
 
@@ -42,30 +48,33 @@ let[validated,setValidation]=useState(false);
           <form  className={validated?"was-validated":"needs-validation"} noValidate onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="title" className="form-label">Title:</label>
-              <input type="text" id="title" name="title" placeholder="Add a catchy title" required className="form-control" value={formData.title} onChange={changeInput}/>
-              <div className="valid-feedback">
+              <input type="text" id="title" name="title" placeholder="Add a catchy title" required className="form-control" value={bookData
+        .title} onChange={changeInput}/>
+        <div className="valid-feedback">
                 Title Looks Good !
               </div>
             </div>
 
             <div className="mb-3">
               <label htmlFor="desc">Description</label>
-              <textarea name="desc" id="desc" placeholder="Enter Description" required className="form-control"  value={formData.desc}  onChange={changeInput} style={{ resize: 'none' }}></textarea>
-              <div className="invalid-feedback">
+              <textarea name="desc" id="desc" placeholder="Enter Description" required className="form-control"  value={bookData
+        .desc}  onChange={changeInput} style={{ resize: 'none' }}></textarea>
+        <div className="invalid-feedback">
                 Please enter a short description !
               </div>
             </div>
 
             <div className="mb-3">
               <label htmlFor="imgurl" className="form-label">Enter Image Url:</label>
-            <input type="text" id="imgurl" name="image" placeholder="Add a Book Image Url" required className="form-control" value={formData.image} onChange={changeInput}/>
-              </div>
+            <input type="text" id="imgurl" name="image" placeholder="Add a Book Image Url" required className="form-control" value={bookData
+      .image} onChange={changeInput}/>          </div>
 
             <div className="row">
               <div className="mb-3 col-md-12">
                 <label htmlFor="author" className="form-label">Author Name:</label>
-                <input id="author" name="author" placeholder="Enter author name" required className="form-control" value={formData.author} onChange={changeInput}/>
-                <div className="invalid-feedback">
+                <input id="author" name="author" placeholder="Enter author name" required className="form-control" value={bookData
+          .author} onChange={changeInput}/>
+          <div className="invalid-feedback">
                   Please Enter a Valid Name!
                 </div>
               </div>

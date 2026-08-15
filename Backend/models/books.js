@@ -1,15 +1,5 @@
 const mongoose=require("mongoose");
 
-async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/BookPalace")
-}
-main().then(()=>{
-    console.log("database connected successfully...");
-}).catch((err)=>{
-    console.log(err);
-})
-
-
 let bookSchema=new mongoose.Schema({
     title:{
         type:String,
@@ -26,7 +16,18 @@ let bookSchema=new mongoose.Schema({
     author:{
           type:String,
         required:true
+    },postedBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+    },postedOn:{
+        type:Date,
+        default:Date.now()
+    },reviews: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review"
     }
+]
 })
 
 

@@ -39,10 +39,12 @@ const Card = ({book}) => {
             12k Reviews
           </span>
         </div>
-
-        <button className="btn btn-dark mt-auto rounded-3">
+        <form action={`/books/${book.title}`}>
+         <button className="btn btn-dark mt-auto rounded-3" >
          View Details
         </button>
+        </form>
+       
 
       </div>
     </div>
