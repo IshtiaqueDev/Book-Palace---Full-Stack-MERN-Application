@@ -7,6 +7,8 @@ const HomePage = () => {
   const [searchParams,setSearchParams]=useSearchParams();
   console.log(searchParams.get("category"));
   
+const category = searchParams.get("category");
+
   const books = [
   {
     title: "The Silent Garden",
@@ -360,11 +362,13 @@ const HomePage = () => {
   }
 ];
 
-// const filteredBooks={
-//   searchParams.get("category")!=null ?
+const filteredBooks = category
+  ? books.filter((book) =>
+      book.category.toLowerCase().includes(category.toLowerCase())
+    )
+  : books;
 
-//   : 
-// }
+  
   return (
    <>
    <div className="container py-4">
@@ -373,7 +377,7 @@ const HomePage = () => {
         <h4>All Books</h4>
         <SortBy/>
     </div>
-  {books.map((book, index) => (
+  {filteredBooks.map((book, index) => (
     <div key={index} className="col-6 col-lg-3">
       <Card book={book}/>
     </div>

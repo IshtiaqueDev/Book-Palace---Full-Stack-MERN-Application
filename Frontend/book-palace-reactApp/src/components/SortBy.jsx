@@ -34,11 +34,11 @@ const SortBy = ({ value = "", onChange }) => {
         aria-label="Categories select"
       >
         <option value="">Categories</option>
-        <option value="self-development">Self-Development</option>
-        <option value="life-lessons">Life Lessons</option>
-        <option value="novels">Novels</option>
-        <option value="stories">Stories</option>
-        <option value="others">Others</option>
+        <option value="Self development">Self-Development</option>
+        <option value="Life Lessons">Life Lessons</option>
+        <option value="Novels">Novels</option>
+        <option value="Stories">Stories</option>
+        <option value="Others">Others</option>
       </select>
     </div>
   )
