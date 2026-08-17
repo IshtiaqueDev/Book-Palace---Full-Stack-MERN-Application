@@ -12,6 +12,7 @@
   border-color: rgba(233, 92, 5, 0.2);
 }
 
+/* Image hover */
 .custom-card img {
   transition: transform 0.5s ease;
 }
@@ -20,18 +21,20 @@
   transform: scale(1.08);
 }
 
+/* Card body */
 .custom-card .card-body {
-  transition: all 2s ease;
+  transition: background-color 0.35s ease;
 }
 
 .custom-card:hover .card-body {
   background-color: #fafafa;
 }
 
+/* Button */
 .custom-card .btn {
-  transition: all 2s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .custom-card:hover .btn {
-  transform: translateY(-8px);
+  transform: translateY(-3px);
 }

@@ -3,11 +3,15 @@ const bookController=require("../controllers/books")
 const wrapAsync=require("../utils/wrapAsync");
 const router=express.Router();
 
-router.get(("/"),wrapAsync(
+router.get("/",wrapAsync(
     bookController.getAllBooks
 ))
 
-router.post(("/add"),wrapAsync(
+router.get("/:id",wrapAsync(
+    bookController.getBook
+));
+
+router.post("/add",wrapAsync(
     async(req,res)=>{
         const bookData=req.body;
         console.log(bookData);

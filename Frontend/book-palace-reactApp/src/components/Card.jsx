@@ -1,50 +1,61 @@
 import React from "react";
 
-const Card = ({book}) => {
+const Card = ({ book }) => {
   return (
     <div
       className="card border-0 custom-card shadow-sm rounded-4 overflow-hidden h-100"
-      style={{ width: "100%", transition: "0.3s ease" }}
+      style={{
+        width: "100%",
+        transition: "0.3s ease",
+      }}
     >
+      {/* Book Image */}
       <img
         src={book.imageUrl}
         className="card-img-top"
-        alt="Atomic Habits"
+        alt={book.title}
         style={{
           height: "260px",
           objectFit: "cover",
         }}
       />
 
-      <div className="card-body d-flex flex-column">
+      <div className="card-body d-flex flex-column p-3">
 
-        <h5 className="card-title fw-bold mb-1">
+        {/* Title */}
+        <h5 className="card-title fw-bold mb-1 text-truncate">
           {book.title}
         </h5>
 
-        <p className="text-secondary mb-3">
-          {book.author}
+        {/* Author */}
+        <p className="text-secondary mb-2">
+          By {book.author}
         </p>
 
-           <span className="badge bg-warning text-dark align-self-start mb-2">
+        {/* Category */}
+        <span className="badge bg-warning text-dark align-self-start rounded-pill px-3 py-2 mb-3">
           {book.category}
         </span>
-  
-        <div className="d-flex justify-content-between align-items-center mb-4">
+
+        {/* Rating & Reviews */}
+        <div className="d-flex justify-content-between align-items-center mb-3">
           <span className="fw-semibold">
             ⭐ 4.8
           </span>
 
-          <span className="text-muted">
+          <small className="text-muted">
             12k Reviews
-          </span>
+          </small>
         </div>
-        <form action={`/books/${book.title}`}>
-         <button className="btn btn-dark mt-auto rounded-3" >
-         View Details
-        </button>
+
+        {/* Button */}
+        <form action={`/books/${book._id}`} className="mt-auto">
+          <button
+            className="btn btn-dark w-100 rounded-3 py-2 fw-semibold"
+          >
+            View Details
+          </button>
         </form>
-       
 
       </div>
     </div>
