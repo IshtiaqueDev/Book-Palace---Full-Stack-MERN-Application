@@ -16,12 +16,9 @@ let bookSchema=new mongoose.Schema({
     author:{
           type:String,
         required:true
-    },postedBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-    },postedOn:{
-        type:Date,
-        default:Date.now()
+    },category:{
+        type:String,
+        required:true
     },reviews: [
     {
         type: mongoose.Schema.Types.ObjectId,

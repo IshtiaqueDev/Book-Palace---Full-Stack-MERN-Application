@@ -1,12 +1,19 @@
-const Joi = require("joi");
+// const Joi = require("joi");
 
-const bookSchemaValidate=Joi.object({
-    title:Joi.string().required(),
-    description:Joi.string().required(),
-    imageUrl:Joi.string().required(),
-    author:Joi.string().required(),
-    postedOn:Joi.date()
-});
+// const bookSchema=Joi.object({
+//     title:Joi.string().required(),
+//     description:Joi.string().required(),
+//     imageUrl:Joi.string().required(),
+//     author:Joi.string().required(),
+// });
 
 
-module.exports=bookSchemaValidate;
+// const validateBook=(req,res,next)=>{
+//     const {error}=bookSchema.validate(req.body);
+//     if(error){
+//         return res.status(400).json({error:error.details[0].message})
+//     }
+//     next()
+// }
+
+// module.exports=validateBook;

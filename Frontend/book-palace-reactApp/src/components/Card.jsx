@@ -2,7 +2,9 @@ import React from "react";
 
 const Card = ({ book }) => {
   return (
-    <div
+    <>
+    <a href={`/books/${book._id}`} className="text-reset text-decoration-none">
+          <div
       className="card border-0 custom-card shadow-sm rounded-4 overflow-hidden h-100"
       style={{
         width: "100%",
@@ -15,7 +17,8 @@ const Card = ({ book }) => {
         className="card-img-top"
         alt={book.title}
         style={{
-          height: "260px",
+          width:"100%",
+          height: "280px",
           objectFit: "cover",
         }}
       />
@@ -40,7 +43,7 @@ const Card = ({ book }) => {
         {/* Rating & Reviews */}
         <div className="d-flex justify-content-between align-items-center mb-3">
           <span className="fw-semibold">
-            ⭐ 4.8
+            ⭐{book.reviews?book.reviews.length:0}
           </span>
 
           <small className="text-muted">
@@ -49,16 +52,18 @@ const Card = ({ book }) => {
         </div>
 
         {/* Button */}
-        <form action={`/books/${book._id}`} className="mt-auto">
+        {/* <form action={`/books/${book._id}`} className="mt-auto">
           <button
             className="btn btn-dark w-100 rounded-3 py-2 fw-semibold"
           >
             View Details
           </button>
-        </form>
+        </form> */}
 
       </div>
     </div>
+    </a>
+    </>
   );
 };
 

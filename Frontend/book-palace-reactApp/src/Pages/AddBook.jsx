@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
+import {useNavigate} from "react-router-dom"
 import axios from "axios"
 
 const AddBook = () => {
   const initialState={
     title:"",
-    desc:"",
-    image:"",
+    description:"",
+    imageUrl:"",
     author:"",
     category:""
   }
+let navigate=useNavigate();
 let[bookData,setBookData]=useState(initialState);
 let[validated,setValidation]=useState(false);
 
@@ -28,13 +30,16 @@ let[validated,setValidation]=useState(false);
             setValidation(true);
             return;
         }
-      setBookData(initialState);
       try{
-        let addBook=await axios.post("http://localhost:5000/books/add",bookData);
+        let response=await axios.post("http://localhost:5000/books",bookData);
+        console.log(response.data.message);
+        setBookData(initialState);
+        setValidation(false);
+        navigate("/books");
       }catch(err){
         console.log(err);
+        alert("Error adding book. Please try again.");
       }
-      setValidation((false))
 
     console.log(bookData);
     
@@ -48,17 +53,18 @@ let[validated,setValidation]=useState(false);
           <form  className={validated?"was-validated":"needs-validation"} noValidate onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="title" className="form-label">Title:</label>
-              <input type="text" id="title" name="title" placeholder="Add a catchy title" required className="form-control" value={bookData
-        .title} onChange={changeInput}/>
+              <input type="text" id="title" name="title" placeholder="Add a catchy title" required className="form-control" value={bookData.title} onChange={changeInput}/>
         <div className="valid-feedback">
                 Title Looks Good !
+              </div>
+              <div className="invalid-feedback">
+                Please enter a title!
               </div>
             </div>
 
             <div className="mb-3">
               <label htmlFor="desc">Description</label>
-              <textarea name="desc" id="desc" placeholder="Enter Description" required className="form-control"  value={bookData
-        .desc}  onChange={changeInput} style={{ resize: 'none' }}></textarea>
+              <textarea name="description" id="desc" placeholder="Enter Description" required className="form-control"  value={bookData.desc}  onChange={changeInput} style={{ resize: 'none' }}></textarea>
         <div className="invalid-feedback">
                 Please enter a short description !
               </div>
@@ -66,14 +72,16 @@ let[validated,setValidation]=useState(false);
 
             <div className="mb-3">
               <label htmlFor="imgurl" className="form-label">Enter Image Url:</label>
-            <input type="text" id="imgurl" name="image" placeholder="Add a Book Image Url" required className="form-control" value={bookData
-      .image} onChange={changeInput}/>          </div>
+            <input type="text" id="imgurl" name="imageUrl" placeholder="Add a Book Image Url" required className="form-control" value={bookData.image} onChange={changeInput}/>
+            <div className="invalid-feedback">
+                Please enter an image URL!
+              </div>
+            </div>
 
             <div className="row">
               <div className="mb-3 col-md-12">
                 <label htmlFor="author" className="form-label">Author Name:</label>
-                <input id="author" name="author" placeholder="Enter author name" required className="form-control" value={bookData
-          .author} onChange={changeInput}/>
+                <input id="author" name="author" placeholder="Enter author name" required className="form-control" value={bookData.author} onChange={changeInput}/>
           <div className="invalid-feedback">
                   Please Enter a Valid Name!
                 </div>
@@ -84,14 +92,17 @@ let[validated,setValidation]=useState(false);
             <div className="row">
               <div className="mb-3 col-md-12">
                 <label htmlFor="category">Category:</label>
-                <select class="form-select" name='category' onChange={changeInput} required>
-                <option>Choose an Option</option>
+                <select className="form-select" name='category' onChange={changeInput} required value={bookData.category}>
+                <option value="">Choose an Option</option>
                 <option value="Self Development">Self Development</option>
                 <option value="Life lessons">Life lessons</option>
                 <option value="Novels">Novels</option>
                 <option value="Stories">Stories</option>
                 <option value="Others">Others</option>
               </select>
+              <div className="invalid-feedback">
+                  Please select a category!
+                </div>
               </div>
             </div>
 

@@ -13,3 +13,13 @@ module.exports.getBook=async(req,res)=>{
     res.json(book);
 }
 
+
+module.exports.addBook=async(req,res)=>{
+    const bookData=req.body;
+    console.log(bookData);
+    let book=new Book(bookData);
+    let result=await book.save()
+    console.log(result);    
+    res.json({message:"Book Added Successfully"});
+}
+
