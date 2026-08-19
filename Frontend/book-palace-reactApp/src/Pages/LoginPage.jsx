@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
     let initialState={ username: "", password: "" }
     let [userData, setUserData] = useState(initialState)
     let [validated, setValidation] = useState(false)
 
+    const navigate=useNavigate();
     const changeInput=(e)=>{
     setUserData((prevData)=>(
       {
@@ -13,18 +17,22 @@ const LoginPage = () => {
     ))
   }
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault();
     const form=e.currentTarget;
      if (!form.checkValidity()) {
             setValidation(true);
             return;
-        }
-
-        console.log(userData);
+        }   
+    try{
+    let response=await axios.post("http://localhost:5000/user/login",userData);
     setUserData(initialState);
-    setValidation((false))
-    
+    setValidation((false));
+    toast.success(response.data.message);
+    navigate("/books");
+    }catch(err){ 
+        toast.error(err.response?.data?.message || err.message);   
+    }
   }
 
 
@@ -62,7 +70,7 @@ const LoginPage = () => {
                                     onChange={changeInput}
                                 />
                             </div>
-                            <p>Not signed in? <a href="/signup">Signup Here</a></p>
+                            <p>Not signed in? <a href="/user/signup">Signup Here</a></p>
                             <button type="submit" className='btn btn-dark w-100'>Login</button>
                         </form>
                     </div>

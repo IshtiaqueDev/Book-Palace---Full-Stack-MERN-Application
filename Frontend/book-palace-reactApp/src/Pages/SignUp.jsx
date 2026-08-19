@@ -1,11 +1,14 @@
     import React, { useState } from 'react'
     import axios from "axios";
+    import { toast } from 'react-toastify'
+    import { useNavigate } from "react-router-dom"
 
     const SignUp = () => {
     let initialState={ username: "",email:"", password: "" }
         let [userData, setUserData] = useState(initialState)
         let [validated, setValidation] = useState(false)
-    
+        const navigate=useNavigate();
+
         const changeInput=(e)=>{
         setUserData((prevData)=>(
             {
@@ -24,10 +27,12 @@
     
             console.log(userData);
             try{
-            let signup=await axios.post("http://localhost:5000/user/signup",userData);
-            }catch{
-
-            }
+            let response=await axios.post("http://localhost:5000/user/signup",userData);
+            toast.success(response.data.message);
+            navigate("/books");
+        }catch(err){    
+        toast.error(err.response?.data?.message || err.message);
+        }
         setUserData(initialState);
         setValidation((false))
         
@@ -82,7 +87,7 @@
                                         onChange={changeInput}
                                     />
                                 </div>
-                                <p>Already signed in?  <a href="/login">Login Here</a></p>
+                                <p>Already signed in?  <a href="/user/login">Login Here</a></p>
                                 <button type="submit" className='btn btn-dark w-100'>SignUp</button>
                             </form>
                         </div>

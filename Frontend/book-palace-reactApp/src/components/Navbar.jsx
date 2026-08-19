@@ -48,7 +48,7 @@ const Navbar = () => {
         </li>
 
         <li className="nav-item">
-        <a href="/login">
+        <a href="/user/login">
           <button className="btn btn-dark px-3">
             Login  / Signup
           </button>

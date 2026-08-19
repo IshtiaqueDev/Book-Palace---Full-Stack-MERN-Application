@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {useNavigate} from "react-router-dom"
 import axios from "axios"
+import { toast } from 'react-toastify'
 
 const AddBook = () => {
   const initialState={
@@ -32,13 +33,13 @@ let[validated,setValidation]=useState(false);
         }
       try{
         let response=await axios.post("http://localhost:5000/books",bookData);
-        console.log(response.data.message);
+        toast.success(response.data.message);
         setBookData(initialState);
         setValidation(false);
         navigate("/books");
       }catch(err){
         console.log(err);
-        alert("Error adding book. Please try again.");
+        toast.error("Error adding book. Please try again.");
       }
 
     console.log(bookData);

@@ -55,6 +55,17 @@ const BookInfo = () => {
 
           <hr />
 
+            
+          <div className="mb-3">
+            <h5 className="text-muted mb-1">Total Reviews: <span className='fs-5 mb-0'>{book.reviews.length}</span></h5>
+          </div>
+
+
+          <div className="mb-3">
+            <h5 className="text-muted mb-1">Category:</h5>
+            <p className="fs-5 mb-0">{book.category}</p>
+          </div>
+          
           <div className="mb-4">
             <h5 className="text-muted mb-2">Description</h5>
             <p className="text-secondary fs-5">
