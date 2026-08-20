@@ -25,7 +25,11 @@ app.use(session({
     },
 }));
 
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -35,16 +39,6 @@ app.use(express.json());
 
 app.use("/books",booksRouter);
 app.use("/user",UserRouter);
-
-// app.get("/fakeUser",async(req,res)=>{
-//     let fakeUser=({
-//         email:"fake@gmail.com",
-//         username:"fakeuser"
-//     })
-//     const registeredUser=await User.register(fakeUser,"123");   
-//     console.log(registeredUser);
-//     res.send(registeredUser);
-// })
 
 
 app.use((err,req,res,next)=>{

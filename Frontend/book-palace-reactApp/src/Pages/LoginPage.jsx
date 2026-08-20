@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/UserProvider'
 
 const LoginPage = () => {
     let initialState={ username: "", password: "" }
     let [userData, setUserData] = useState(initialState)
     let [validated, setValidation] = useState(false)
+    const {setUser}=useContext(UserContext);
 
     const navigate=useNavigate();
     const changeInput=(e)=>{
@@ -29,6 +31,7 @@ const LoginPage = () => {
     setUserData(initialState);
     setValidation((false));
     toast.success(response.data.message);
+    setUser(response.data.user)
     navigate("/books");
     }catch(err){ 
         toast.error(err.response?.data?.message || err.message);   

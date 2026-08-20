@@ -19,18 +19,37 @@ router.post("/login", (req, res, next) => {
         if (err) return next(err);
         if (!user) {
             return res.status(401).json({
-                message: "Invalid username or password"
+                message: "Invalid username or password",
             });
         }
         req.login(user, (err) => {
             if (err) return next(err);
              res.json({
-                message: "LoggedIn Successfully!"
+                message: "LoggedIn Successfully!",
+                user:req.user
             });
         });
     })(req, res, next);
 });
 
+
+router.get("/logout",(req,res)=>{
+    req.logout((err)=>{
+        res.json({
+            message:err.getMessage()
+        })
+    })
+    res.json({
+        message:"Logout Successfully!"
+    })
+})
+
+
+router.get("/me",(req,res)=>{
+    res.json({
+        user:req.user
+    })
+})
 
 module.exports=router;
 

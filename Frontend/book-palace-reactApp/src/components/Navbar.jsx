@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
+import { UserContext } from '../context/UserProvider'
+import { toast } from "react-toastify"
+import axios from "axios"
 
 const Navbar = () => {
+  const {user,setUser}=useContext(UserContext);
+
+  async function logout(){
+    try{
+      let response=await   axios.get("http://localhost:5000/user/logout");
+      toast.success(response.data.message);
+      setUser(null);
+    }catch(err){
+      console.log(err.message); 
+    }
+  }
+
   return (
 <nav className="navbar navbar-expand-lg bg-white border-bottom py-3">
   <div className="container">
@@ -48,14 +63,21 @@ const Navbar = () => {
         </li>
 
         <li className="nav-item">
-        <a href="/user/login">
+        {
+          user?  
+          <button className="btn btn-dark px-3" onClick={logout}>
+          Logout
+          </button>
+          :
+            <a href="/user/login">
           <button className="btn btn-dark px-3">
             Login  / Signup
           </button>
           </a>
+        }
         </li>
 
-      </ul>
+      </ul> 
     </div>
 
   </div>  
