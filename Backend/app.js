@@ -27,14 +27,24 @@ app.use(session({
 
 app.use(cors({
     origin: "http://localhost:5173",
-    credentials: true
+    withCredentials: true
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser((user, done) => {
+    done(null, user._id);
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findById(id);
+        done(null, user);
+    } catch (err) {
+        done(err);
+    }
+});
 app.use(express.json());
 
 app.use("/books",booksRouter);

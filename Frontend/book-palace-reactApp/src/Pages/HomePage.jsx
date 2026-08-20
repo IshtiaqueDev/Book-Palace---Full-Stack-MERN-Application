@@ -7,16 +7,13 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 const HomePage = () => {
   const [books,setBooks]=useState([]);
   const [searchParams,setSearchParams]=useSearchParams();
-  console.log(searchParams.get("category"));
 
 useEffect(()=>{
   getBooks();
-  console.log(books);
 },[])
 
 
 useEffect(() => {
-    console.log("Updated books:", books);
 }, [books]);
 
 async function getBooks(){

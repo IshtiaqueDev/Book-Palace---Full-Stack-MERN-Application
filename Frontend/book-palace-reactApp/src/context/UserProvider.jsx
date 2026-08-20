@@ -8,9 +8,10 @@ export const UserProvider = ({ children }) => {
     const getUser=async()=>{
         try{
         let response=await axios.get("http://localhost:5000/user/me",{
-            withCredentials:true
+            credentials:true
         })
-        console.log(response.data)
+        console.log(response.data.user);
+        setUser(response.data.user);
         }catch(err){
             console.log(err.message);
         }

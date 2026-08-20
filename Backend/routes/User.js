@@ -23,6 +23,7 @@ router.post("/login", (req, res, next) => {
             });
         }
         req.login(user, (err) => {
+            res.locals.user=user;
             if (err) return next(err);
              res.json({
                 message: "LoggedIn Successfully!",
@@ -35,20 +36,19 @@ router.post("/login", (req, res, next) => {
 
 router.get("/logout",(req,res)=>{
     req.logout((err)=>{
-        res.json({
-            message:err.getMessage()
-        })
-    })
-    res.json({
+      if(err){
+            res.status(500).json({ error: err.message });
+      }
+      res.locals.user=null;
+       res.json({
         message:"Logout Successfully!"
+    })
     })
 })
 
 
 router.get("/me",(req,res)=>{
-    res.json({
-        user:req.user
-    })
+  res.json({user:res.locals.user});
 })
 
 module.exports=router;
