@@ -9,7 +9,10 @@ const Navbar = () => {
 
   async function logout(){
     try{
-      let response=await  axios.get("http://localhost:5000/user/logout");
+      let response=await  axios.get("http://localhost:5000/user/logout",{
+        withCredentials:true
+      });
+      localStorage.setItem("logout", Date.now());
       toast.success(response.data.message);
       setUser(null);
     }catch(err){

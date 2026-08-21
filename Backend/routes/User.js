@@ -45,10 +45,11 @@ router.get("/logout", (req, res, next) => {
                 return next(err);
             }
             res.clearCookie("connect.sid");
-        });
-         res.json({
+            
+           return res.status(200).json({
                 message: "Logout Successfully!"
             });
+        });
     }); 
 }); 
 

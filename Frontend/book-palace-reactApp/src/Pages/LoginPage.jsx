@@ -32,6 +32,7 @@ const LoginPage = () => {
     });
     setUserData(initialState);
     setValidation((false));
+    localStorage.setItem("auth-change", Date.now());
     toast.success(response.data.message);
     console.log(response.data.user)
     setUser(response.data.user);

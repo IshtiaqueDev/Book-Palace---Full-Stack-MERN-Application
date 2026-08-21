@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useState , lazy , Suspense } from 'react'
 import {Route , Routes} from 'react-router-dom'
 import Navbar from './components/Navbar'
-import HomePage from "./Pages/HomePage";
 import LoginPage from './Pages/LoginPage';
 import SignUp from './Pages/SignUp';
 import Footer from './components/Footer';
@@ -10,6 +9,9 @@ import ErrorPage from './Pages/ErrorPage';
 import BookInfo from "./Pages/BookInfo"
 import { ToastContainer, toast,Bounce } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from './utils/ProtectedRoute';
+const HomePage=lazy(()=>import("./Pages/HomePage"))
+import Loader from './components/Loader';
 
 function App() {
 
@@ -19,8 +21,16 @@ function App() {
     <Navbar/>
     <main className="flex-grow-1">
     <Routes>
-      <Route path='/books' element={ <HomePage/>}></Route>
-      <Route path='/books/add' element={<AddBook/>}></Route>
+      <Route path='/books' element={ 
+        <Suspense fallback={<Loader/>}>
+        <HomePage/>
+        </Suspense>
+        }></Route>
+      <Route path='/books/add' element={
+        <ProtectedRoute>
+          <AddBook/>
+        </ProtectedRoute>
+        }></Route>
       <Route path='/user/login' element={<LoginPage/>}></Route>
       <Route path='/user/signup' element={<SignUp/>}></Route>
       <Route path='/books/:id' element={<BookInfo/>}></Route>
