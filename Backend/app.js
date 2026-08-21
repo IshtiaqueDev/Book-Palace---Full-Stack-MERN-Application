@@ -14,6 +14,14 @@ app.listen(port,()=>{
     console.log("Server is Listening...");
 })
 
+
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
+
+app.use(express.json());
+
 app.use(session({
   secret: 'mysupersecret',
   resave: false,
@@ -25,10 +33,6 @@ app.use(session({
     },
 }));
 
-app.use(cors({
-    origin: "http://localhost:5173",
-    withCredentials: true
-}));
 
 app.use(passport.initialize());
 app.use(passport.session());

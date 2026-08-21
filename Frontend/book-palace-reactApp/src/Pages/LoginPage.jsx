@@ -27,11 +27,14 @@ const LoginPage = () => {
             return;
         }   
     try{
-    let response=await axios.post("http://localhost:5000/user/login",userData);
+    let response=await axios.post("http://localhost:5000/user/login",userData,{
+        withCredentials:true
+    });
     setUserData(initialState);
     setValidation((false));
     toast.success(response.data.message);
-    setUser(response.data.user)
+    console.log(response.data.user)
+    setUser(response.data.user);
     navigate("/books");
     }catch(err){ 
         toast.error(err.response?.data?.message || err.message);   

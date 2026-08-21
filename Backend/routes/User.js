@@ -23,7 +23,6 @@ router.post("/login", (req, res, next) => {
             });
         }
         req.login(user, (err) => {
-            res.locals.user=user;
             if (err) return next(err);
              res.json({
                 message: "LoggedIn Successfully!",
@@ -34,21 +33,30 @@ router.post("/login", (req, res, next) => {
 });
 
 
-router.get("/logout",(req,res)=>{
-    req.logout((err)=>{
-      if(err){
-            res.status(500).json({ error: err.message });
-      }
-      res.locals.user=null;
-       res.json({
-        message:"Logout Successfully!"
-    })
-    })
-})
+router.get("/logout", (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            });
+        }
+        req.session.destroy((err) => {
+            if (err) {
+                return next(err);
+            }
+            res.clearCookie("connect.sid");
+        });
+         res.json({
+                message: "Logout Successfully!"
+            });
+    }); 
+}); 
 
 
 router.get("/me",(req,res)=>{
-  res.json({user:res.locals.user});
+  res.json({
+    user:req.user||null
+});
 })
 
 module.exports=router;

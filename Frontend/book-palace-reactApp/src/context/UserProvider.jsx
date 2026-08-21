@@ -8,7 +8,7 @@ export const UserProvider = ({ children }) => {
     const getUser=async()=>{
         try{
         let response=await axios.get("http://localhost:5000/user/me",{
-            credentials:true
+            withCredentials:true
         })
         console.log(response.data.user);
         setUser(response.data.user);
