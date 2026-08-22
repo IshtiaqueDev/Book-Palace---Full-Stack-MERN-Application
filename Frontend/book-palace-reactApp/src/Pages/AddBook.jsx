@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react'
 import {useNavigate} from "react-router-dom"
 import axios from "axios"
 import { toast } from 'react-toastify'
@@ -14,7 +14,6 @@ const AddBook = () => {
 let navigate=useNavigate();
 let[bookData,setBookData]=useState(initialState);
 let[validated,setValidation]=useState(false);
-
 
   const changeInput=(e)=>{
     setBookData((prevData)=>(
@@ -32,7 +31,9 @@ let[validated,setValidation]=useState(false);
             return;
         }
       try{
-        let response=await axios.post("http://localhost:5000/books",bookData);
+        let response=await axios.post("http://localhost:5000/books",bookData,{
+          withCredentials:true
+        });
         toast.success(response.data.message);
         setBookData(initialState);
         setValidation(false);

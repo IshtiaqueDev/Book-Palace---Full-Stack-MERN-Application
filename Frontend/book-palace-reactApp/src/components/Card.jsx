@@ -34,6 +34,7 @@ const Card = ({ book }) => {
         <p className="text-secondary mb-2">
           By {book.author}
         </p>
+        
 
         {/* Category */}
         <span className="badge bg-warning text-dark align-self-start rounded-pill px-3 py-2 mb-3">

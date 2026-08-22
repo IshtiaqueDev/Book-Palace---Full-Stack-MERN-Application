@@ -7,16 +7,16 @@ module.exports.getAllBooks=async(req,res)=>{
 
 module.exports.getBook=async(req,res)=>{
     const {id}=req.params;
-    console.log(id);
-    let book=await Book.findOne({_id:id});
+    let book=await Book.findOne({_id:id}).populate("postedBy","username");
     res.json(book);
 }
 
 
 module.exports.addBook=async(req,res)=>{
-    const bookData=req.body;
-    console.log(bookData);
-    let book=new Book(bookData);
+    let book=new Book({
+        ...req.body,
+        postedBy:req.user._id
+    });
     let result=await book.save()
     res.json({message:"Book Added Successfully"});
 }

@@ -1,13 +1,31 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const BookInfo = () => {
+  const[relatedBooks,setRelatedBooks]=useState([]);
   const {id}=useParams();
   const[book,setBookInfo]=useState(null);
+  const navigate=useNavigate();
+
   useEffect(()=>{
     findBook();
   },[]);
+
+let relatedBooksFind=async()=>{
+    try{
+    let response=await axios.get(`http://localhost:5000/books/relatedbook/${book.category}`);
+    setRelatedBooks(response.data.relatedBooks);
+  }catch(err){  
+    console.log(err);
+  }
+}
+
+useEffect(()=>{
+  relatedBooksFind();
+},[book])
 
 
   const findBook=async()=>{
@@ -18,6 +36,22 @@ const BookInfo = () => {
         console.log(err); 
     }
   }
+
+
+  let handleDelete=async()=>{
+    try{
+      let response=await axios.delete(`http://localhost:5000/books/delete/${book._id}`,{
+        withCredentials:true
+      });
+      toast.success(response.data.message);
+      navigate("/books");
+    }catch(err){
+    toast.error(err);
+    }
+  }
+
+
+
     return(
     <>
     <div className="container py-5">
@@ -73,11 +107,16 @@ const BookInfo = () => {
             </p>
           </div>
 
+            {/* <div className="mb-3">
+            <h5 className="text-muted mb-1">Posted By:</h5>
+            <p className="fs-5 mb-0">{book.postedBy.username}</p>
+          </div> */}
+
           <button className="btn btn-dark px-4">
             Edit
           </button>
           &nbsp;&nbsp;
-          <button className="btn btn-danger px-4">
+          <button className="btn btn-danger px-4" onClick={handleDelete}>
             Delete
           </button>
 
@@ -86,6 +125,34 @@ const BookInfo = () => {
 
     </div>
   )}
+
+   <div className="m-3">
+  <h3>Related Books:</h3>
+
+  <div className="d-flex gap-3 overflow-auto">
+    {relatedBooks &&
+      relatedBooks.map((el) => (
+        <a
+          href={`/books/${el._id}`}
+          key={el._id}
+          className="text-decoration-none text-dark flex-shrink-0"
+        >
+          <div className="card" style={{ width: "200px" }}>
+            <img
+              src={el.imageUrl}
+              className="card-img-top"
+              alt={el.title}
+              style={{ height: "250px", objectFit: "cover" }}
+            />
+            <div className="card-body">
+              <h5   className="card-title text-truncate"
+              style={{ maxWidth: "100%" }}>{el.title}</h5>
+            </div>
+          </div>
+        </a>
+      ))}
+  </div>
+</div>
 </div>
     </>
   )

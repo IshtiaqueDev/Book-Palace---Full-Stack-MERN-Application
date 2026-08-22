@@ -12,6 +12,9 @@ let bookSchema=new mongoose.Schema({
     imageUrl:{
           type:String,
         required:true
+    },postedBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
     },
     author:{
           type:String,
