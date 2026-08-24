@@ -1,19 +1,26 @@
-import React, { useState} from 'react'
+import React, { useState , useEffect} from 'react'
 import {useNavigate} from "react-router-dom"
 import axios from "axios"
 import { toast } from 'react-toastify'
 
-const AddBook = () => {
-  const initialState={
-    title:"",
-    description:"",
-    imageUrl:"",
-    author:"",
-    category:""
-  }
+const AddBook = ({book}) => {
+  const initialState= {
+      title: "",
+      description: "",
+      imageUrl: "",
+      author: "",
+      category: "",
+    }
 let navigate=useNavigate();
 let[bookData,setBookData]=useState(initialState);
 let[validated,setValidation]=useState(false);
+
+
+useEffect(()=>{
+  if(book){
+    setBookData(book)
+  }
+},[book]);
 
   const changeInput=(e)=>{
     setBookData((prevData)=>(
@@ -31,9 +38,15 @@ let[validated,setValidation]=useState(false);
             return;
         }
       try{
-        let response=await axios.post("http://localhost:5000/books",bookData,{
+      
+        let response=await axios({
+          method: book?'put':'post',
+          url:book?
+          `http://localhost:5000/books/edit/${book._id}`
+          :"http://localhost:5000/books",
+          data:bookData,
           withCredentials:true
-        });
+        })
         toast.success(response.data.message);
         setBookData(initialState);
         setValidation(false);
@@ -42,16 +55,13 @@ let[validated,setValidation]=useState(false);
         console.log(err);
         toast.error("Error adding book. Please try again.");
       }
-
-    console.log(bookData);
-    
   }
 
   return (
     <div className="container my-5">
       <div className="row justify-content-center">
         <div className="col-12 col-md-8">
-          <h3 className="mb-2">Add New Book</h3>
+          <h3 className="mb-2">{book?"Edit Book":"Add Book"}</h3>
           <form  className={validated?"was-validated":"needs-validation"} noValidate onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="title" className="form-label">Title:</label>
@@ -65,8 +75,8 @@ let[validated,setValidation]=useState(false);
             </div>
 
             <div className="mb-3">
-              <label htmlFor="desc">Description</label>
-              <textarea name="description" id="desc" placeholder="Enter Description" required className="form-control"  value={bookData.desc}  onChange={changeInput} style={{ resize: 'none' }}></textarea>
+              <label htmlFor="description">Description</label>
+              <textarea name="description" id="description" placeholder="Enter Description" required className="form-control"  value={bookData.description}  onChange={changeInput} style={{ resize: 'none' }}></textarea>
         <div className="invalid-feedback">
                 Please enter a short description !
               </div>
@@ -74,7 +84,7 @@ let[validated,setValidation]=useState(false);
 
             <div className="mb-3">
               <label htmlFor="imgurl" className="form-label">Enter Image Url:</label>
-            <input type="text" id="imgurl" name="imageUrl" placeholder="Add a Book Image Url" required className="form-control" value={bookData.image} onChange={changeInput}/>
+            <input type="text" id="imgurl" name="imageUrl" placeholder="Add a Book Image Url" required className="form-control" value={bookData.imageUrl} onChange={changeInput}/>
             <div className="invalid-feedback">
                 Please enter an image URL!
               </div>
@@ -109,7 +119,7 @@ let[validated,setValidation]=useState(false);
             </div>
 
 
-            <button className="btn btn-dark">Add</button>
+            <button className="btn btn-dark">{book?"Update Book":"Add Book"}</button>
             <br/><br/>
           </form>
           </div>

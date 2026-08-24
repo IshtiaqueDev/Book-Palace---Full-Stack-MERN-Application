@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserProvider'
 import { toast } from "react-toastify"
 import axios from "axios"
 
 const Navbar = () => {
   const {user,setUser}=useContext(UserContext);
-
+  const navigate=useNavigate();
   async function logout(){
     try{
       let response=await  axios.get("http://localhost:5000/user/logout",{
@@ -15,6 +15,7 @@ const Navbar = () => {
       localStorage.setItem("logout", Date.now());
       toast.success(response.data.message);
       setUser(null);
+      navigate("/books");
     }catch(err){
       console.log(err.message); 
     }

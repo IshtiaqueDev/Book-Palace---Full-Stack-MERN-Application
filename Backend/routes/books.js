@@ -15,6 +15,23 @@ router.get("/:id",wrapAsync(
     bookController.getBook
 ));
 
+router.get("/getBook/:id",wrapAsync(async(req,res)=>{
+    const {id}=req.params;
+    const book=await Book.find({_id:id});
+    res.json({
+        book:book
+    })
+}))
+
+router.put("/edit/:id",wrapAsync(async(req,res)=>{
+    let {id}=req.params;
+    const bookData=req.body;
+    await Book.findByIdAndUpdate(id,bookData);
+    res.json({
+        message:"Book Updated Successfully!"
+    })
+}))
+
 router.get("/relatedbook/:category",wrapAsync(async(req,res)=>{
     const {category}=req.params;
     const relatedBooks=await Book.find({category:category})

@@ -1,15 +1,17 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserProvider';
+import Reviews from '../components/Reviews';
 
 const BookInfo = () => {
   const[relatedBooks,setRelatedBooks]=useState([]);
   const {id}=useParams();
   const[book,setBookInfo]=useState(null);
   const navigate=useNavigate();
-
+  const {user}=useContext(UserContext);
   useEffect(()=>{
     findBook();
   },[]);
@@ -107,18 +109,23 @@ useEffect(()=>{
             </p>
           </div>
 
-            {/* <div className="mb-3">
+            <div className="mb-3">
             <h5 className="text-muted mb-1">Posted By:</h5>
             <p className="fs-5 mb-0">{book.postedBy.username}</p>
-          </div> */}
+          </div>
 
-          <button className="btn btn-dark px-4">
+          {
+            user&&user._id==book.postedBy._id&&
+            <>
+            <a href={`/books/edit/${book._id}`} className="btn btn-dark px-4">
             Edit
-          </button>
+          </a>
           &nbsp;&nbsp;
           <button className="btn btn-danger px-4" onClick={handleDelete}>
             Delete
           </button>
+          </>
+          }
 
         </div>
       </div>
@@ -154,6 +161,8 @@ useEffect(()=>{
   </div>
 </div>
 </div>
+
+<Reviews/>
     </>
   )
 }
