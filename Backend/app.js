@@ -3,6 +3,7 @@ const session=require("express-session");
 const passport=require("passport");
 const cors=require("cors");
 const User=require("./models/User");
+const reviewRouter=require("./routes/review")
 const connectDB=require("./config/db")
 const LocalStrategy=require("passport-local");
 const app=express();
@@ -53,7 +54,7 @@ app.use(express.json());
 
 app.use("/books",booksRouter);
 app.use("/user",UserRouter);
-
+app.use("/reviews",reviewRouter);
 
 app.use((err,req,res,next)=>{
      res.status(400).json({

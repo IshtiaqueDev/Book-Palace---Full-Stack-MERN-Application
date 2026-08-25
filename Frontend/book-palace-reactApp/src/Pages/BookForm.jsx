@@ -38,7 +38,6 @@ useEffect(()=>{
             return;
         }
       try{
-      
         let response=await axios({
           method: book?'put':'post',
           url:book?
@@ -61,9 +60,9 @@ useEffect(()=>{
     <div className="container my-5">
       <div className="row justify-content-center">
         <div className="col-12 col-md-8">
-          <h3 className="mb-2">{book?"Edit Book":"Add Book"}</h3>
-          <form  className={validated?"was-validated":"needs-validation"} noValidate onSubmit={handleSubmit}>
-            <div className="mb-3">
+            <h3 className="mb-2">{book?"Edit Book":"Add Book"}</h3>
+            <form  className={validated?"was-validated":"needs-validation"} noValidate onSubmit={handleSubmit}>
+              <div className="mb-3">
               <label htmlFor="title" className="form-label">Title:</label>
               <input type="text" id="title" name="title" placeholder="Add a catchy title" required className="form-control" value={bookData.title} onChange={changeInput}/>
         <div className="valid-feedback">

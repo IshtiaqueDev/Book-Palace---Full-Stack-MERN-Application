@@ -162,7 +162,7 @@ useEffect(()=>{
 </div>
 </div>
 
-<Reviews/>
+<Reviews id={id}/>
     </>
   )
 }
