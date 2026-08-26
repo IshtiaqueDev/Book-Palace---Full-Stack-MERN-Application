@@ -57,7 +57,7 @@ app.use("/user",UserRouter);
 app.use("/reviews",reviewRouter);
 
 app.use((err,req,res,next)=>{
-     res.status(400).json({
-        message: err.message
+    res.json({
+        err:err.message
     });
 })

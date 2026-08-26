@@ -4,6 +4,7 @@ const wrapAsync=require("../utils/wrapAsync");
 const validateBook=require("../schemas/bookSchemaValidation")
 const router=express.Router();
 const Book=require("../models/books");
+const {isBookOwner,isLoggedIn}=require("../utils/middlewares")
 
 router.route("/").get(wrapAsync(
     bookController.getAllBooks
@@ -23,7 +24,7 @@ router.get("/getBook/:id",wrapAsync(async(req,res)=>{
     })
 }))
 
-router.put("/edit/:id",wrapAsync(async(req,res)=>{
+router.put("/edit/:id",isBookOwner,isLoggedIn,wrapAsync(async(req,res)=>{
     let {id}=req.params;
     const bookData=req.body;
     await Book.findByIdAndUpdate(id,bookData);
@@ -41,7 +42,7 @@ router.get("/relatedbook/:category",wrapAsync(async(req,res)=>{
 }))
 
 
-router.delete("/delete/:id",wrapAsync(async(req,res)=>{
+router.delete("/delete/:id",isBookOwner,isLoggedIn,wrapAsync(async(req,res)=>{
     const {id}=req.params;
     console.log(id);
     await Book.findByIdAndDelete(id);
