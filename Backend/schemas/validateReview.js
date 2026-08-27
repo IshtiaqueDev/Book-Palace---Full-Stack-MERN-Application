@@ -1,8 +1,16 @@
 const Joi=require("joi");
 
-const reviewSchemaValidation=Joi.object({
+const reviewSchema=Joi.object({
     comment:Joi.string().required(),
-    rating:Joi.number().required().min(1).max(5)
+    rating:Joi.number().min(1).max(5).default(1)
 });
 
-module.exports=reviewSchemaValidation;
+
+const validateReviews=(req,res,next)=>{
+    const result=reviewSchema.validate(req.body);
+    if(result.error){
+        return next(new Error(result.error.details[0].message))
+    }
+    next();
+}
+module.exports=validateReviews;

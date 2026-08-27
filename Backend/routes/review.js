@@ -2,8 +2,10 @@ const express=require("express");
 const router=express.Router();
 const Review=require("../models/reviews");
 const Book = require("../models/books");
+const {isLoggedIn}=require("../utils/middlewares");
+const validateReviews=require("../schemas/validateReview");
 
-router.post("/:id/add",async(req,res)=>{
+router.post("/:id/add",validateReviews,isLoggedIn,async(req,res)=>{
     const {id}=req.params;
     let review=new Review({
         ...req.body,
