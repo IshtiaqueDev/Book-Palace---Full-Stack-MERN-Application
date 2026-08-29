@@ -204,7 +204,7 @@ This project demonstrates several important full-stack development concepts:
 ### 1. Clone the Repository
 
 ```bash
-git clone <YOUR_REPOSITORY_URL>
+git clone https://github.com/IshtiaqueDev/Book-Palace---Full-Stack-MERN-Application
 ```
 
 Move into the project directory:
