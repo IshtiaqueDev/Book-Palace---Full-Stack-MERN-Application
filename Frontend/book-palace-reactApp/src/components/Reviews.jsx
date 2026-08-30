@@ -32,8 +32,9 @@ const Reviews = ({id}) => {
     try{
       console.log(reviewData)
       if(!user){
-        // toast.error("Login Before Adding Review");
+        toast.error("Login Before Adding Review!");
         navigate("/user/login");
+        return;
       }
       let response=await axios.post(`http://localhost:5000/reviews/${id}/add`,reviewData ,{
         withCredentials:true

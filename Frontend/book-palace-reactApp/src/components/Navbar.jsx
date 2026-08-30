@@ -110,7 +110,7 @@ const Navbar = () => {
                     <li>
                       <Link
                         className="dropdown-item"
-                        to="/my-books"
+                        to="books/mybooks"
                       >
                         <i className="bi bi-book me-2"></i>
                         My Added Books

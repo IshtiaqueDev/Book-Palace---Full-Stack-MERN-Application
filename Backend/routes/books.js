@@ -8,9 +8,21 @@ const validateBook=require("../schemas/bookSchemaValidation");
 
 router.route("/").get(wrapAsync(
     bookController.getAllBooks
-)).post(isLoggedIn,validateBook,wrapAsync(
+)).post(wrapAsync(
     bookController.addBook
 ))
+
+router.get("/mybooks",isLoggedIn,wrapAsync(async(req,res)=>{
+    console.log("Request Reached");
+    const id=req.user._id;
+    console.log(id)
+    let books=await Book.find({postedBy :id});
+    console.log(books)
+    res.json({
+        myBooks:books
+    })
+}))
+
 
 router.get("/:id",wrapAsync(
     bookController.getBook
@@ -40,6 +52,8 @@ router.get("/relatedbook/:category",wrapAsync(async(req,res)=>{
         relatedBooks:relatedBooks
     })
 }))
+
+
 
 
 router.delete("/delete/:id",isLoggedIn,isBookOwner,wrapAsync(async(req,res)=>{

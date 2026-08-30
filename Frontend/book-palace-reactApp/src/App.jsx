@@ -13,7 +13,7 @@ const BookForm = lazy(() => import("./Pages/BookForm"));
 const BookInfo = lazy(() => import("./Pages/BookInfo"));
 const EditPage = lazy(() => import("./Pages/EditPage"));
 const ErrorPage = lazy(() => import("./Pages/ErrorPage"));
-
+const MyBooks=lazy(()=>import("./Pages/MyBooks"))
 
 function App() {
 
@@ -34,6 +34,11 @@ function App() {
       <Route path='/user/login' element={<LoginPage/>}></Route>
       <Route path='/user/signup' element={<SignUp/>}></Route>
       <Route path='/books/:id' element={<BookInfo/>}></Route>
+      <Route path='/books/mybooks' element={
+       <ProtectedRoute>
+         <MyBooks/>
+       </ProtectedRoute>
+        }></Route>
       <Route path='books/edit/:id' element={
         <ProtectedRoute>
           <EditPage/>

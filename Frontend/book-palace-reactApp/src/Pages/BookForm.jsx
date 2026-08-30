@@ -31,6 +31,7 @@ useEffect(()=>{
   }
 
   const handleSubmit=async(e)=>{
+    console.log("Button CLiked");
     e.preventDefault();
     const form=e.currentTarget;
      if (!form.checkValidity()) {
@@ -102,7 +103,7 @@ useEffect(()=>{
 
             <div className="row">
               <div className="mb-3 col-md-12">
-                <label htmlFor="category">Category:</label>
+                <label id="category" htmlFor="category">Category:</label>
                 <select className="form-select" name='category' onChange={changeInput} required value={bookData.category}>
                 <option value="">Choose an Option</option>
                 <option value="Self Development">Self Development</option>

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserProvider';
 import Reviews from '../components/Reviews';
+import { ReviewCards } from '../components/ReviewCards';
 
 const BookInfo = () => {
   const[relatedBooks,setRelatedBooks]=useState([]);
@@ -88,14 +89,7 @@ useEffect(()=>{
             <h5 className="text-muted mb-1">Author:</h5>
             <p className="fs-5 mb-0">{book.author}</p>
           </div>
-
           <hr />
-
-            
-          <div className="mb-3">
-            <h5 className="text-muted mb-1">Total Reviews: <span className='fs-5 mb-0'>{book.reviews.length}</span></h5>
-          </div>
-
 
           <div className="mb-3">
             <h5 className="text-muted mb-1">Category:</h5>
@@ -163,7 +157,8 @@ useEffect(()=>{
 </div>
 
 <Reviews id={id}/>
-    </>
+<ReviewCards id={id}/>
+</>
   )
 }
 
