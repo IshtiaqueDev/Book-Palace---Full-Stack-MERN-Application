@@ -1,16 +1,23 @@
-import React from 'react'
+import React from "react";
+import { useLocation } from "react-router-dom";
 
 const ErrorPage = () => {
-  return (
-    <div>
-      <div className="alert alert-danger col-md-6 mt-3 m-auto" role="alert">
-      <h4 className="alert-heading">Page not Found!</h4>
-      <p>The information you are trying to get is not available , Please try again with valid request. Explore Other Features.</p>
-      <hr/>
-      <p class="mb-0">If you are stucking here please report a issue on our given Email:bookpalace@gmail.com</p>
-  </div>
-</div>
-  )
-}
+    const location = useLocation();
+    const message =
+        location.state?.message ||
+        "The information you are trying to get is not available. Please try again with a valid request. Explore other features.";
+    return (
+        <div>
+            <div
+                className="alert alert-danger col-md-6 mt-3 m-auto"
+                role="alert">
+                <h4 className="alert-heading">
+                    Something went wrong!
+                </h4>
+                <p>{message}</p>
+            </div>
+        </div>
+    );
+};
 
-export default ErrorPage
+export default ErrorPage;

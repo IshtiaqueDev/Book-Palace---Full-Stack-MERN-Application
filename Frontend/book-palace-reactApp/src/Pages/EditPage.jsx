@@ -13,8 +13,11 @@ const EditPage = () => {
         let bookData=response.data.book;
         setBookData(bookData[0]);
         console.log(book);
-        }catch(err){
-            console.log(err);
+        }catch(error){
+            navigate("/error", {
+            state: {
+                message: error.response?.data?.err
+            }})
         }
     }
 
