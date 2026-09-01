@@ -15,7 +15,7 @@ module.exports.addReview=async(req,res)=>{
 }
 
 module.exports.getAllReviews=async(req,res)=>{
-    let allReviews=await Review.find({});
+    let allReviews=await Book.find({});
     res.json({
         review:allReviews
     })

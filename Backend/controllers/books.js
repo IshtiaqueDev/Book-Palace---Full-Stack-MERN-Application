@@ -59,11 +59,3 @@ module.exports.deleteBook=async(req,res)=>{
         message:"Deleted Successfully!"
     })
 }
-
-module.exports.getBook=async(req,res)=>{
-    const {id}=req.params;
-    const book=await Book.find({_id:id});
-    res.json({
-        book:book
-    })
-}

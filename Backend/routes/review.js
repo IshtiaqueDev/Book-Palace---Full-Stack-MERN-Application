@@ -1,7 +1,5 @@
 const express=require("express");
 const router=express.Router();
-const Review=require("../models/reviews");
-const Book = require("../models/books");
 const {isLoggedIn,isReviewOwner}=require("../utils/middlewares");
 const validateReviews=require("../schemas/validateReview");
 const ReviewController=require("../controllers/review")

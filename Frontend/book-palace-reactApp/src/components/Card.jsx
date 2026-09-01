@@ -44,11 +44,11 @@ const Card = ({ book }) => {
         {/* Rating & Reviews */}
         <div className="d-flex justify-content-between align-items-center mb-3">
           <span className="fw-semibold">
-            ⭐{book.reviews?book.reviews.length:0}
+            ⭐{book.reviewCount}
           </span>
 
           <small className="text-muted">
-            12k Reviews
+            View in Detail 
           </small>
         </div>
 
