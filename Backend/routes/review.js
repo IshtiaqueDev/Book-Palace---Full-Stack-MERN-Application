@@ -4,46 +4,25 @@ const Review=require("../models/reviews");
 const Book = require("../models/books");
 const {isLoggedIn,isReviewOwner}=require("../utils/middlewares");
 const validateReviews=require("../schemas/validateReview");
+const ReviewController=require("../controllers/review")
 const wrapAsync = require("../utils/wrapAsync");
 
-router.post("/:id/add",async(req,res)=>{
-    const {id}=req.params;
-    console.log(id);
-    let review=new Review({
-        ...req.body,
-        author:req.user._id,
-        bookId:id
-    });
-    let newReview=await review.save();
-    res.json({
-        message:"Review Added Successfully!"
-    })
-})
+router.post("/:id/add",validateReviews,wrapAsync(
+    ReviewController.addReview
+))
 
-router.get('/',async(req,res)=>{
-    let allReviews=await Book.find({});
-    res.json({
-        review:allReviews
-    })
-})
+router.get('/',wrapAsync(
+    ReviewController.getAllReviews
+))
 
 
-
-router.get('/:id/getall',wrapAsync(async(req,res)=>{
-    const {id}=req.params;
-    const reviews=await Review.find({bookId:id}).populate('author','username');
-    res.json({
-        reviews:reviews
-    })
-}))
+router.get('/:id/getall',wrapAsync(
+    ReviewController.getBookReviews
+))
 
 
-router.delete("/delete/:id",isLoggedIn,isReviewOwner,async(req,res)=>{
-    console.log("Request Reached~");
-    await Review.findByIdAndDelete(req.params.id);
-    res.json({
-        message:"Review Deleted Successfully!"
-    });
-})
+router.delete("/delete/:id",isLoggedIn,isReviewOwner,wrapAsync(
+    ReviewController.deleteReview
+))
 
 module.exports=router;

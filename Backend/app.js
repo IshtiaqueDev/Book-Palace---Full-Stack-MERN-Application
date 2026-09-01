@@ -1,3 +1,6 @@
+if(process.env.NODE_ENV!="production"){
+require('dotenv').config();
+}
 const express=require("express");
 const session=require("express-session");
 const passport=require("passport");
@@ -14,6 +17,11 @@ const port=5000;
 app.listen(port,()=>{
     console.log("Server is Listening...");
 })
+
+
+const dbUrl=process.env.DBURL;
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 
 app.use(cors({

@@ -21,3 +21,41 @@ module.exports.addBook=async(req,res)=>{
     res.json({message:"Book Added Successfully"});
 }
 
+module.exports.getMyBooks=async(req,res)=>{
+    console.log("Request Reached");
+    const id=req.user._id;
+    console.log(id)
+    let books=await Book.find({postedBy :id});
+    console.log(books)
+    res.json({
+        myBooks:books
+    })
+}
+
+
+module.exports.editBookRoute=async(req,res)=>{
+    let {id}=req.params;
+    const bookData=req.body;
+    await Book.findByIdAndUpdate(id,bookData);
+    res.json({
+        message:"Book Updated Successfully!"
+    })
+}
+
+
+module.exports.getCategoryBooks=async(req,res)=>{
+    const {category}=req.params;
+    const relatedBooks=await Book.find({category:category})
+    res.json({
+        relatedBooks:relatedBooks
+    })
+}
+
+module.exports.deleteBook=async(req,res)=>{
+    const {id}=req.params;
+    console.log(id);
+    await Book.findByIdAndDelete(id);
+    res.json({
+        message:"Deleted Successfully!"
+    })
+}
