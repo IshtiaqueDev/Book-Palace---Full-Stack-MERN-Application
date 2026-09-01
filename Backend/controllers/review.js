@@ -1,5 +1,4 @@
 const Review=require("../models/reviews");
-const Book=require("../models/books");
 
 module.exports.addReview=async(req,res)=>{
     const {id}=req.params;
@@ -16,7 +15,7 @@ module.exports.addReview=async(req,res)=>{
 }
 
 module.exports.getAllReviews=async(req,res)=>{
-    let allReviews=await Book.find({});
+    let allReviews=await Review.find({});
     res.json({
         review:allReviews
     })
