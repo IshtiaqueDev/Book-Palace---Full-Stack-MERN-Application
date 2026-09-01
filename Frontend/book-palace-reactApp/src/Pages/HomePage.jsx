@@ -17,7 +17,7 @@ useEffect(() => {
 }, [books]);
 
 async function getBooks(){
-  let response=await axios.get("http://localhost:5000/books");
+  let response=await axios.get("https://book-palace-full-stack-mern-application-production.up.railway.app/books");
   setBooks(response.data.allBooks);
 } 
 

@@ -42,8 +42,8 @@ useEffect(()=>{
         let response=await axios({
           method: book?'put':'post',
           url:book?
-          `http://localhost:5000/books/edit/${book._id}`
-          :"http://localhost:5000/books",
+          `https://book-palace-full-stack-mern-application-production.up.railway.app/books/edit/${book._id}`
+          :"https://book-palace-full-stack-mern-application-production.up.railway.app/:5000/books",
           data:bookData,
           withCredentials:true
         })

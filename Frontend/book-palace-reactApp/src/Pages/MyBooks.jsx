@@ -8,7 +8,7 @@ const MyBooks=()=>{
 
     const getMyBooks=async()=>{
         try{
-            const response=await axios.get("http://localhost:5000/books/mybooks",{
+            const response=await axios.get("https://book-palace-full-stack-mern-application-production.up.railway.app/books/mybooks",{
                 withCredentials:true
             });
            setBooks(response.data.myBooks);

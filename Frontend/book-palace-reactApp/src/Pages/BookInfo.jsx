@@ -19,7 +19,7 @@ const BookInfo = () => {
 
 let relatedBooksFind=async()=>{
   try{
-    let response=await axios.get(`http://localhost:5000/books/relatedbook/${book.category}`);
+    let response=await axios.get(`https://book-palace-full-stack-mern-application-production.up.railway.app/books/relatedbook/${book.category}`);
     setRelatedBooks(response.data.relatedBooks);
   }catch(err){  
     console.log(err);
@@ -33,7 +33,7 @@ useEffect(()=>{
 
   const findBook=async()=>{
     try{
-        let response=await axios.get(`http://localhost:5000/books/${id}`);
+        let response=await axios.get(`https://book-palace-full-stack-mern-application-production.up.railway.app/books/${id}`);
         await setBookInfo(response.data)
     }catch(err){
         console.log(err); 
@@ -43,7 +43,7 @@ useEffect(()=>{
 
   let handleDelete=async()=>{
     try{
-      let response=await axios.delete(`http://localhost:5000/books/delete/${book._id}`,{
+      let response=await axios.delete(`https://book-palace-full-stack-mern-application-production.up.railway.app/books/delete/${book._id}`,{
         withCredentials:true
       });
       toast.success(response.data.message);
