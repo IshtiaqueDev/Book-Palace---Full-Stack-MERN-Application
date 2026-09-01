@@ -25,7 +25,10 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: [
+        "http://localhost:5173",
+        "https://book-palace-full-stack-mern-application-ev62-b97qgtx0c-imh3.vercel.app"
+    ],
     credentials: true
 }));
 
