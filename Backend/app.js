@@ -24,19 +24,8 @@ const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 
-const allowedOrigins = [
-    "http://localhost:5173",
-    "https://YOUR-STABLE-VERCEL-DOMAIN.vercel.app"
-];
-
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
+    origin: "https://book-palace-full-stack-mern-application-ev62-kku8edojg-imh3.vercel.app",
     credentials: true
 }));
 
