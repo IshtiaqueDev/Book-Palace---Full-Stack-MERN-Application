@@ -39,11 +39,3 @@ module.exports.deleteReview=async(req,res)=>{
     });
 }
 
-
-module.exports.getBook=async(req,res)=>{
-    const {id}=req.params;
-    const book=await Book.find({_id:id});
-    res.json({
-        book:book
-    })
-}
