@@ -8,7 +8,7 @@ export const UserProvider = ({ children }) => {
 
     const getUser=async()=>{
         try{
-        let response=await axios.get("http://localhost:5000/user/me",{
+        let response=await axios.get("https://book-palace-full-stack-mern-application-production.up.railway.app/user/me",{
             withCredentials:true
         })
         console.log(response.data.user);
