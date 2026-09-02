@@ -25,24 +25,23 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 
 const allowedOrigins = [
-  "https://book-palace-full-stack-mern-applica.vercel.app",
-  "http://localhost:5173" 
+  "http://localhost:5173", 
 ];
-
+const vercelPreviewPattern = /^https:\/\/book-palace-full-stack-mern-application.*\.vercel\.app$/;
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
+        if (!origin) return callback(null, true); // allow non-browser requests (curl, server-to-server)
+        if (allowedOrigins.includes(origin) || vercelPreviewPattern.test(origin)) {
+            return callback(null, true);
         }
+        callback(new Error("Not allowed by CORS: " + origin));
     },
     credentials: true
 }));
+app.set("trust proxy", 1);
 
 
 app.use(express.json());
-
 app.use(session({
   secret: 'mysupersecret',
   resave: false,
