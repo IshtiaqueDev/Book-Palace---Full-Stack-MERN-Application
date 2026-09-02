@@ -25,34 +25,27 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 
 const allowedOrigins = [
-    "http://localhost:5173",
-    "https://book-palace-full-stack-mern-applica.vercel.app"
+  "http://localhost:5173",
+  "https://book-palace-full-stack-mern-application.vercel.app",
 ];
-
-
-// Regex to cover preview deployments on Vercel
-const vercelPreviewPattern = /^https:\/\/book-palace-full-stack-mern-applica(?:-[a-z0-9-]+)?\.vercel\.app$/;
-
+// Regex matching production and any preview hash deployment:
+// e.g., book-palace-full-stack-mern-application-fxh2yk2i8-imh3.vercel.app
+const vercelPattern = /^https:\/\/book-palace-full-stack-mern-application(-[a-z0-9]+)*\.vercel\.app$/;
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
-
-        const isAllowed = allowedOrigins.includes(origin) || vercelPreviewPattern.test(origin);
-        if (isAllowed) {
-            return callback(null, true);
-        } else {
-            return callback(null, false);
-        }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin) || vercelPattern.test(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS: " + origin));
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
-
-
 
 app.use(express.json());
 app.use(session({
