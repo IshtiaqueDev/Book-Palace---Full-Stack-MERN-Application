@@ -12,7 +12,7 @@ const LocalStrategy=require("passport-local");
 const app=express();
 const UserRouter=require("./routes/User");
 const booksRouter=require("./routes/books");
-const port=5000;
+const port = process.env.PORT || 5000;
 
 app.listen(port,()=>{
     console.log("Server is Listening...");
@@ -25,9 +25,11 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 
 const allowedOrigins = [
-  "http://localhost:5173", 
-];
-const vercelPreviewPattern = /^https:\/\/book-palace-full-stack-mern-application.*\.vercel\.app$/;
+    "http://localhost:5173",
+    "https://book-palace-full-stack-mern-applica.vercel.app",
+    ...(process.env.CORS_ORIGINS || "").split(","),
+].map((origin) => origin.trim()).filter(Boolean);
+const vercelPreviewPattern = /^https:\/\/book-palace-full-stack-mern-applica(?:-[a-z0-9-]+)?\.vercel\.app$/;
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin) return callback(null, true); // allow non-browser requests (curl, server-to-server)
@@ -43,7 +45,7 @@ app.set("trust proxy", 1);
 
 app.use(express.json());
 app.use(session({
-  secret: 'mysupersecret',
+    secret: process.env.SESSION_SECRET || 'development-only-secret',
   resave: false,
   saveUninitialized: true,
   cookie:{

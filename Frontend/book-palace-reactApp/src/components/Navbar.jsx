@@ -11,7 +11,7 @@ const Navbar = () => {
   async function logout() {
     try {
       let response = await axios.get(
-        "http://localhost:5000/user/logout",
+        "https://book-palace-full-stack-mern-application-production.up.railway.app/user/logout",
         {
           withCredentials: true,
         }

@@ -43,7 +43,7 @@ useEffect(()=>{
           method: book?'put':'post',
           url:book?
           `https://book-palace-full-stack-mern-application-production.up.railway.app/books/edit/${book._id}`
-          :"https://book-palace-full-stack-mern-application-production.up.railway.app/:5000/books",
+          :"https://book-palace-full-stack-mern-application-production.up.railway.app/books",
           data:bookData,
           withCredentials:true
         })

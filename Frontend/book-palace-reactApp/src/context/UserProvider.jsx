@@ -43,7 +43,7 @@ export const UserProvider = ({ children }) => {
 
 useEffect(() => {
     const handleAuthChange = () => {
-      axios.get("http://localhost:5000/user/me", {
+    axios.get("https://book-palace-full-stack-mern-application-production.up.railway.app/user/me", {
         withCredentials: true
         })
         .then((response) => {
