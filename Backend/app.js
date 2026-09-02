@@ -24,8 +24,19 @@ const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 
+const allowedOrigins = [
+  "https://book-palace-full-stack-mern-applica.vercel.app",
+  "http://localhost:5173" 
+];
+
 app.use(cors({
-    origin: "https://book-palace-full-stack-mern-application-ev62-kku8edojg-imh3.vercel.app",
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true
 }));
 
@@ -40,6 +51,8 @@ app.use(session({
          expires:Date.now()+7*24*60*60*1000,
          maxAge:7*24*60*60*1000,
          httpOnly:true,
+        secure: true, 
+        sameSite: 'none',   
     },
 }));
 
