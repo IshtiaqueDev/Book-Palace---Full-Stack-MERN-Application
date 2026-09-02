@@ -23,7 +23,6 @@ const dbUrl=process.env.DBURL;
 const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
-
 const allowedOrigins = [
   "http://localhost:5173",
   "https://book-palace-full-stack-mern-applica.vercel.app",
@@ -32,15 +31,14 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow non-browser tools (Postman, server-to-server)
     if (!origin) return callback(null, true);
 
-    // Matches localhost, the main domain, or ANY deployment/preview URL for this project
-    const isVercelDeployment =
-      origin.startsWith("https://book-palace-full-stack-mern-application" || "https://book-palace-full-stack-mern-applica.vercel.app") &&
+    const isVercelOrigin =
+      (origin.startsWith("https://book-palace-full-stack-mern-applica") ||
+       origin.startsWith("https://book-palace-full-stack-mern-application")) &&
       origin.endsWith(".vercel.app");
 
-    if (allowedOrigins.includes(origin) || isVercelDeployment) {
+    if (allowedOrigins.includes(origin) || isVercelOrigin) {
       return callback(null, true);
     }
 
@@ -51,8 +49,8 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+// This handles BOTH normal requests and preflight OPTIONS automatically:
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
 
 app.use(express.json());
 app.use(session({
