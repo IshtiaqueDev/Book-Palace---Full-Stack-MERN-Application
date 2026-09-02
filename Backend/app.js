@@ -26,21 +26,32 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://book-palace-full-stack-mern-applica.vercel.app",
-    ...(process.env.CORS_ORIGINS || "").split(","),
-].map((origin) => origin.trim()).filter(Boolean);
+    "https://book-palace-full-stack-mern-applica.vercel.app"
+];
+
+
+// Regex to cover preview deployments on Vercel
 const vercelPreviewPattern = /^https:\/\/book-palace-full-stack-mern-applica(?:-[a-z0-9-]+)?\.vercel\.app$/;
-app.use(cors({
+
+const corsOptions = {
     origin: function (origin, callback) {
-        if (!origin) return callback(null, true); // allow non-browser requests (curl, server-to-server)
-        if (allowedOrigins.includes(origin) || vercelPreviewPattern.test(origin)) {
+        if (!origin) return callback(null, true);
+
+        const isAllowed = allowedOrigins.includes(origin) || vercelPreviewPattern.test(origin);
+        if (isAllowed) {
             return callback(null, true);
+        } else {
+            return callback(null, false);
         }
-        callback(new Error("Not allowed by CORS: " + origin));
     },
-    credentials: true
-}));
-app.set("trust proxy", 1);
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
 
 
 app.use(express.json());
