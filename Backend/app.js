@@ -7,7 +7,6 @@ const session = require("express-session");
 const passport = require("passport");
 const cors = require("cors");
 const LocalStrategy = require("passport-local");
-
 const User = require("./models/User");
 const reviewRouter = require("./routes/review");
 const connectDB = require("./config/db");
@@ -22,19 +21,7 @@ connectDB();
 
 // CORS setup: dynamically accepts localhost and ANY preview/production link on Vercel
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-
-    const isLocalhost = origin.includes("localhost");
-    const isVercel =
-      origin.includes("book-palace") && origin.endsWith(".vercel.app");
-
-    if (isLocalhost || isVercel) {
-      return callback(null, true);
-    }
-
-    return callback(null, false);
-  },
+  origin:"https://book-palace-full-stack-mern-application-git-main-imh3.vercel.app",
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
