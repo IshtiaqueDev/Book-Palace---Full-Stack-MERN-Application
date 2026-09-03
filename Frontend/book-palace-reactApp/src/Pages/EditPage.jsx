@@ -4,7 +4,7 @@ import BookForm from './BookForm'
 import axios from 'axios';
 
 const EditPage = () => {
-    const[book,setBookData]=useState('');
+    const[book,setBookData]=useState(null);
     const {id}=useParams();
 
     let findBook=async()=>{

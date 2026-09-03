@@ -11,7 +11,6 @@ export const UserProvider = ({ children }) => {
         let response=await axios.get("https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/user/me",{
             withCredentials:true
         })
-        console.log(response.data.user);
         setUser(response.data.user);
         }catch(err){
             console.log(err.message);
