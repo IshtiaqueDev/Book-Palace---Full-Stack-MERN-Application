@@ -1,7 +1,6 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
-
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
@@ -14,16 +13,12 @@ const UserRouter = require("./routes/User");
 const booksRouter = require("./routes/books");
 
 const app = express();
-
 app.set("trust proxy", 1);
-
 connectDB();
 
 const corsOptions = {
   origin: "https://book-palace-full-stack-mern-application-git-main-imh3.vercel.app",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
 };
 
 app.use(cors(corsOptions));

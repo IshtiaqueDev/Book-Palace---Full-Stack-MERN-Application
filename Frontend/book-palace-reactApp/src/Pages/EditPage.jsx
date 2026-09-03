@@ -9,7 +9,7 @@ const EditPage = () => {
 
     let findBook=async()=>{
         try{
-        let response=await axios.get(`https://book-palace-full-stack-mern-application-production.up.railway.app/books/getBook/${id}`);
+        let response=await axios.get(`https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/getBook/${id}`);
         let bookData=response.data.book;
         setBookData(bookData[0]);
         console.log(book);

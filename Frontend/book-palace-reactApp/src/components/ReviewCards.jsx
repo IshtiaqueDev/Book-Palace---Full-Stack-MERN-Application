@@ -13,7 +13,7 @@ export const ReviewCards = ({ id }) => {
         console.log(id);
         try{
             console.log("Before delete");
-            let response=await axios.delete(`https://book-palace-full-stack-mern-application-production.up.railway.app/reviews/delete/${id}`,{
+            let response=await axios.delete(`https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/reviews/delete/${id}`,{
                 withCredentials:true
             });
             console.log("After delete ");
@@ -27,7 +27,7 @@ export const ReviewCards = ({ id }) => {
     const getReviews = async () => {
         try {
             const response = await axios.get(
-                `https://book-palace-full-stack-mern-application-production.up.railway.app/reviews/${id}/getall`
+                `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/reviews/${id}/getall`
             );
 
             setAllReviews(response.data.reviews);

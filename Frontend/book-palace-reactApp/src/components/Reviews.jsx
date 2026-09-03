@@ -36,7 +36,7 @@ const Reviews = ({id}) => {
         navigate("/user/login");
         return;
       }
-      let response=await axios.post(`https://book-palace-full-stack-mern-application-production.up.railway.app/reviews/${id}/add`,reviewData ,{
+      let response=await axios.post(`https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/reviews/${id}/add`,reviewData ,{
         withCredentials:true
       })
       toast.success(response.data.message);
