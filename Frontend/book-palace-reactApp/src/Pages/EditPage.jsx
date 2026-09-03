@@ -1,34 +1,39 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
-import BookForm from './BookForm'
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import BookForm from "./BookForm";
+import axios from "axios";
 
 const EditPage = () => {
-    const[book,setBookData]=useState(null);
-    const {id}=useParams();
+  const [book, setBookData] = useState(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    let findBook=async()=>{
-        try{
-        let response=await axios.get(`https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/getBook/${id}`);
-        let bookData=response.data.book;
-        setBookData(bookData[0]);
-        console.log(book);
-        }catch(error){
-            navigate("/error", {
-            state: {
-                message: error.response?.data?.err
-            }})
-        }
+  const findBook = async () => {
+    try {
+      const response = await axios.get(
+        `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/getBook/${id}`
+      );
+      const bookData = response.data.book;
+      console.log("BOOK RECEIVED:", bookData[0]);
+      setBookData(bookData[0]);
+    } catch (error) {
+      navigate("/error", {
+        state: {
+          message: error.response?.data?.err,
+        },
+      });
     }
+  };
 
-    useEffect(()=>{
-        findBook();
-    },[])
+  useEffect(() => {
+    findBook();
+  }, []);
+
   return (
     <div>
-      <BookForm book={book}/>
+      <BookForm book={book} />
     </div>
-  )
-}
+  );
+};
 
-export default EditPage
+export default EditPage;

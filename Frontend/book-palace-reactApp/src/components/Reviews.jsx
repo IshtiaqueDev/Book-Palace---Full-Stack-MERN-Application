@@ -62,7 +62,7 @@ const Reviews = ({id}) => {
             noValidate
             onSubmit={handleSubmit}
           >
-            <div className="mb-3 mt-3">
+            <div className="mt-1 mt-3">
               <label htmlFor="rating">Rating:</label>
               <fieldset className="starability-slot">
                 <input

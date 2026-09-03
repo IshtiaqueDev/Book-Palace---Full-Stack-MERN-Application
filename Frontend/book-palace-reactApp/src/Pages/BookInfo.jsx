@@ -205,7 +205,6 @@ const BookInfo = () => {
       </div>
 
       <Reviews id={id} />
-
       <ReviewCards id={id} />
     </>
   );
