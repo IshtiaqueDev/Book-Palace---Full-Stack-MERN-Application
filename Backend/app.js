@@ -19,9 +19,8 @@ app.set("trust proxy", 1);
 
 connectDB();
 
-// CORS setup: dynamically accepts localhost and ANY preview/production link on Vercel
 const corsOptions = {
-  origin:"https://book-palace-full-stack-mern-application-git-main-imh3.vercel.app",
+  origin: "https://book-palace-full-stack-mern-application-git-main-imh3.vercel.app",
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
