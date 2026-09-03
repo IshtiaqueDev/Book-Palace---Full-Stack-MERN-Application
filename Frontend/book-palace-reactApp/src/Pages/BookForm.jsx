@@ -53,6 +53,10 @@ useEffect(()=>{
         navigate("/books");
       }catch(err){
         console.log(err);
+          console.log("STATUS:", err.response?.status);
+  console.log("DATA:", err.response?.data);
+  console.log("MESSAGE:", err.message);
+
         toast.error("Error adding book. Please try again.");
       }
   }
