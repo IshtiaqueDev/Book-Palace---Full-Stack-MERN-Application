@@ -44,7 +44,7 @@ const Card = ({ book }) => {
         {/* Rating & Reviews */}
         <div className="d-flex justify-content-between align-items-center mb-3">
           <span className="fw-semibold">
-            ⭐{book.reviewCount}
+            ⭐
           </span>
 
           <small className="text-muted">

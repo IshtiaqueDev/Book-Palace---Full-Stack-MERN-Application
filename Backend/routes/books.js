@@ -24,7 +24,7 @@ router.get("/getBook/:id",wrapAsync(
     bookController.getBook
 ))
 
-router.put("/edit/:id",isLoggedIn,isBookOwner,validateBook,wrapAsync(
+router.put("/edit/:id",isLoggedIn,isBookOwner,wrapAsync(
     bookController.editBookRoute  
 ))
 
