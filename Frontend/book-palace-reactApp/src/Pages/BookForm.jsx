@@ -42,8 +42,8 @@ useEffect(()=>{
         let response=await axios({
           method: book?'put':'post',
           url:book?
-          `https://book-palace-full-stack-mern-application-production.up.railway.app/books/edit/${book._id}`
-          :"https://book-palace-full-stack-mern-application-production.up.railway.app/books",
+          `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/edit/${book._id}`
+          :"https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books",
           data:bookData,
           withCredentials:true
         })
@@ -52,11 +52,6 @@ useEffect(()=>{
         setValidation(false);
         navigate("/books");
       }catch(err){
-        console.log(err);
-          console.log("STATUS:", err.response?.status);
-  console.log("DATA:", err.response?.data);
-  console.log("MESSAGE:", err.message);
-
         toast.error("Error adding book. Please try again.");
       }
   }
