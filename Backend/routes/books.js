@@ -4,10 +4,14 @@ const wrapAsync=require("../utils/wrapAsync");
 const router=express.Router();
 const {isBookOwner,isLoggedIn}=require("../utils/middlewares")
 const validateBook=require("../schemas/bookSchemaValidation");
+const upload = require("../utils/multer");
 
 router.route("/").get(wrapAsync(
     bookController.getAllBooks
-)).post(wrapAsync(
+)).post( upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "bookPDF", maxCount: 1 }
+  ]),wrapAsync(
     bookController.addBook
 ))
 
@@ -24,7 +28,10 @@ router.get("/getBook/:id",wrapAsync(
     bookController.getBook
 ))
 
-router.put("/edit/:id",isLoggedIn,isBookOwner,wrapAsync(
+router.put("/edit/:id",upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "bookPDF", maxCount: 1 }
+  ]),isLoggedIn,isBookOwner,wrapAsync(
     bookController.editBookRoute  
 ))
 

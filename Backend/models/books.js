@@ -9,10 +9,17 @@ let bookSchema=new mongoose.Schema({
           type:String,
         required:true
     },
-    imageUrl:{
-          type:String,
-        required:true
-    },postedBy:{
+   image: {
+        url: String,
+        public_id: String
+    },
+    bookPDF: {
+        url: String,
+        public_id: String,
+        size: Number,
+        format: String
+    },
+    postedBy:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },

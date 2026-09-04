@@ -7,13 +7,15 @@ const AddBook = ({book}) => {
   const initialState= {
       title: "",
       description: "",
-      imageUrl: "",
       author: "",
       category: "",
     }
 let navigate=useNavigate();
 let[bookData,setBookData]=useState(initialState);
 let[validated,setValidation]=useState(false);
+const [imageFile, setImageFile] = useState(null);
+const [pdfFile, setPdfFile] = useState(null);
+
 
 
 useEffect(()=>{
@@ -30,38 +32,66 @@ useEffect(()=>{
     ))
   }
 
-  const handleSubmit=async(e)=>{
-    console.log("Button CLiked");
-    e.preventDefault();
-    const form=e.currentTarget;
-     if (!form.checkValidity()) {
-            setValidation(true);
-            return;
-        }
-      try{
-        let response=await axios({
-          method: book?'put':'post',
-          url:book?
-          `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/edit/${book._id}`
-          :"https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books",
-          data:bookData,
-          withCredentials:true
-        })
-        toast.success(response.data.message);
-        setBookData(initialState);
-        setValidation(false);
-        navigate("/books");
-      }catch(err){
-        toast.error("Error adding book. Please try again.");
-      }
+
+  const handlePdfChange = (e) => {
+    setPdfFile(e.target.files[0]);
+};  
+
+const handleImageChange = (e) => {
+  setImageFile(e.target.files[0]);
+};
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const form = e.currentTarget;
+
+  if (!form.checkValidity()) {
+    setValidation(true);
+    return;
   }
+
+  const formData = new FormData();
+
+  formData.append("title", bookData.title);
+  formData.append("description", bookData.description);
+  formData.append("author", bookData.author);
+  formData.append("category", bookData.category);
+
+  if (imageFile) {
+    formData.append("image", imageFile);
+  }
+
+  if (pdfFile) {
+    formData.append("bookPDF", pdfFile);
+  }
+
+  try {
+    const response = await axios({
+      method: book ? "put" : "post",
+      url: book
+  ? `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/edit/${book._id}`
+  : "https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books",
+      data: formData,
+      withCredentials: true
+    });
+    toast.success(response.data.message);
+    setBookData(initialState);
+    setImageFile(null);
+    setPdfFile(null);
+    setValidation(false);
+    navigate("/books");
+  } catch (err) {
+    toast.error("Error adding book. Please try again.");
+  }
+};
 
   return (
     <div className="container my-5">
       <div className="row justify-content-center">
         <div className="col-12 col-md-8">
             <h3 className="mb-2">{book?"Edit Book":"Add Book"}</h3>
-            <form  className={validated?"was-validated":"needs-validation"} noValidate onSubmit={handleSubmit}>
+            <form  className={validated?"was-validated":"needs-validation"}  encType="multipart/form-data" noValidate onSubmit={handleSubmit}>
               <div className="mb-3">
               <label htmlFor="title" className="form-label">Title:</label>
               <input type="text" id="title" name="title" placeholder="Add a catchy title" required className="form-control" value={bookData.title} onChange={changeInput}/>
@@ -81,15 +111,48 @@ useEffect(()=>{
               </div>
             </div>
 
+          {
+            bookData.image?.url&&
+            <>
             <div className="mb-3">
-              <label htmlFor="imgurl" className="form-label">Enter Image Url:</label>
-            <input type="text" id="imgurl" name="imageUrl" placeholder="Add a Book Image Url" required className="form-control" value={bookData.imageUrl} onChange={changeInput}/>
-            <div className="invalid-feedback">
-                Please enter an image URL!
-              </div>
-            </div>
+            <label htmlFor="">Preview Image:</label>
+            <img src={bookData.image.url} alt="Preview Image" height={200} width={200}/>
+          </div>
+            </>
+          }
 
-            <div className="row">
+  <div className="mb-3">
+  <label htmlFor="imageFile" className="form-label">
+    Upload Book Cover:
+  </label>
+  <input
+    className="form-control"
+    type="file"
+    id="imageFile"
+     name="image"
+    accept="image/*"
+    onChange={handleImageChange}
+    required={!book}
+  />
+</div>
+
+
+<div className="mb-3">
+  <label htmlFor="pdfFile" className="form-label">
+    Upload PDF Of Book:
+  </label>
+  <input
+    className="form-control"
+    type="file"
+    id="pdfFile"
+    name='bookPDF'
+    accept="application/pdf"
+    onChange={handlePdfChange}
+    required={!book}
+  />
+</div>
+          
+              <div className="row">
               <div className="mb-3 col-md-12">
                 <label htmlFor="author" className="form-label">Author Name:</label>
                 <input id="author" name="author" placeholder="Enter author name" required className="form-control" value={bookData.author} onChange={changeInput}/>
