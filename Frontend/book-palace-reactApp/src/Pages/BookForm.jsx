@@ -15,12 +15,15 @@ let[bookData,setBookData]=useState(initialState);
 let[validated,setValidation]=useState(false);
 const [imageFile, setImageFile] = useState(null);
 const [pdfFile, setPdfFile] = useState(null);
-
-
+const [imagePreview, setImagePreview] = useState("");
 
 useEffect(()=>{
   if(book){
     setBookData(book)
+    setImagePreview(book?.image?.url || book?.imageUrl || "")
+  } else {
+    setBookData(initialState)
+    setImagePreview("")
   }
 },[book]);
 
@@ -38,12 +41,19 @@ useEffect(()=>{
 };  
 
 const handleImageChange = (e) => {
-  setImageFile(e.target.files[0]);
+  const file = e.target.files[0];
+  setImageFile(file);
+  if (file) {
+    setImagePreview(URL.createObjectURL(file));
+  } else {
+    setImagePreview(book?.image?.url || book?.imageUrl || "");
+  }
 };
 
   const handleSubmit = async (e) => {
   e.preventDefault();
 
+  
   const form = e.currentTarget;
 
   if (!form.checkValidity()) {
@@ -61,17 +71,20 @@ const handleImageChange = (e) => {
   if (imageFile) {
     formData.append("image", imageFile);
   }
-
   if (pdfFile) {
     formData.append("bookPDF", pdfFile);
   }
 
   try {
+    console.log(bookData);
+    console.log("BOOK DATA:", bookData);
+console.log("IMAGE:", imageFile);
+console.log("PDF:", pdfFile);
     const response = await axios({
       method: book ? "put" : "post",
       url: book
-  ? `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/edit/${book._id}`
-  : "https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books",
+  ? `http://localhost:5000/books/edit/${book._id}`
+  : "http://localhost:5000/books",
       data: formData,
       withCredentials: true
     });
@@ -111,15 +124,13 @@ const handleImageChange = (e) => {
               </div>
             </div>
 
-          {
-            bookData.image?.url&&
-            <>
+          {(imagePreview || bookData.image?.url || bookData.imageUrl) && (
             <div className="mb-3">
-            <label htmlFor="">Preview Image:</label>
-            <img src={bookData.image.url} alt="Preview Image" height={200} width={200}/>
-          </div>
-            </>
-          }
+              <label htmlFor="">Preview Image:</label>
+             <br />
+              <img src={imagePreview || bookData.image?.url || bookData.imageUrl} alt="Preview Image" height={200} width={200} style={{ objectFit: 'cover' }} />
+            </div>
+          )}
 
   <div className="mb-3">
   <label htmlFor="imageFile" className="form-label">

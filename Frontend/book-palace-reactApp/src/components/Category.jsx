@@ -7,18 +7,15 @@ const SortBy = ({ value = "", onChange }) => {
   const [selected, setSelected] = useState(initial)
 
   useEffect(() => {
-    // keep component state in sync when URL changes externally
     const cat = searchParams.get('category') || value || ""
     if (cat !== selected) setSelected(cat)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, value])
 
   const handleChange = (e) => {
     const val = e.target.value
     setSelected(val)
     if (typeof onChange === "function") onChange(e)
-
-    // preserve other query params while updating category
+      
     const params = Object.fromEntries(searchParams)
     if (val) params.category = val
     else delete params.category

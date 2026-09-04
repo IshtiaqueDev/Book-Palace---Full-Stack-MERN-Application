@@ -29,6 +29,9 @@ let bookSchema=new mongoose.Schema({
     },category:{
         type:String,
         required:true
+    },
+    isFavourite:{
+        type:Boolean
     }
 })
 

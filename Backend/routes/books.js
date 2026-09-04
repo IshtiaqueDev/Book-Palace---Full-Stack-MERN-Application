@@ -9,12 +9,13 @@ const upload = cloudConfig.upload;
 
 router.route("/").get(wrapAsync(
     bookController.getAllBooks
-)).post( upload.fields([
-    { name: "image", maxCount: 1 },
-    { name: "bookPDF", maxCount: 1 }
-  ]),wrapAsync(
-    bookController.addBook
-))
+)).post(
+    upload.fields([
+        { name: "image", maxCount: 1 },
+        { name: "bookPDF", maxCount: 1 }
+    ]),
+    wrapAsync(bookController.addBook)
+)
 
 router.get("/mybooks",isLoggedIn,wrapAsync(
     bookController.getMyBooks

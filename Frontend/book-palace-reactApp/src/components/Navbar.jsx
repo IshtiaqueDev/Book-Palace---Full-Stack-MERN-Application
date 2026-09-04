@@ -1,33 +1,40 @@
-import React, { useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useContext,useState } from "react";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
 import { toast } from "react-toastify";
 import axios from "axios";
 
 const Navbar = () => {
+  const[search,setSearch]=useState('');
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const [searchVal,setSearchParam]=useSearchParams();
 
   async function logout() {
     try {
       let response = await axios.get(
-        "https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/user/logout",
+        "http://localhost:5000/user/logout",
         {
           withCredentials: true,
         }
       );
-
       localStorage.setItem("logout", Date.now());
-
       toast.success(response.data.message);
-
       setUser(null);
-
       navigate("/books");
     } catch (err) {
       console.log(err.message);
     }
   }
+
+  const searchBook=()=>{
+    setSearchParam({search:search})
+  }
+
+  const handleSearchChange=(e)=>{
+    setSearch(e.target.value);
+  }
+
 
   return (
     <nav className="navbar navbar-expand-lg bg-white border-bottom py-3">
@@ -49,9 +56,11 @@ const Navbar = () => {
               type="text"
               className="form-control"
               placeholder="Search books..."
+              value={search}
+              onChange={handleSearchChange}
             />
 
-            <button className="btn btn-dark">
+            <button className="btn btn-dark" onClick={searchBook}>
               Search
             </button>
           </div>
@@ -75,8 +84,17 @@ const Navbar = () => {
           className="collapse navbar-collapse"
           id="navbarNav"
         >
-          <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-4">
 
+          <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-4">
+           <li className="nav-item">
+              <Link
+                className="nav-link fw-medium"
+                to="/books/addFavourite"
+              >
+                My Favourite Books
+              </Link>
+            </li>
+           
             {/* Add Book */}
             <li className="nav-item">
               <Link

@@ -17,18 +17,25 @@ useEffect(() => {
 }, [books]);
 
 async function getBooks(){
-  let response=await axios.get("https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books");
+  let response=await axios.get("http://localhost:5000/books");
   setBooks(response.data.allBooks);
 } 
 
 const category = searchParams.get("category");
+const search=searchParams.get("search");
 
 
-const filteredBooks = category
-  ? books.filter((book) =>
-      book.category.toLowerCase().includes(category.toLowerCase())
-    )
-  : books;
+const filteredBooks = books.filter((book) => {
+  const matchesCategory = category
+    ? book.category.toLowerCase().includes(category.toLowerCase())
+    : true;
+
+  const matchesSearch = search
+    ? book.title.toLowerCase().includes(search.toLowerCase())
+    : true;
+
+  return matchesCategory && matchesSearch;
+});
 
   
  return (
@@ -43,11 +50,16 @@ const filteredBooks = category
 
       {/* Books */}
       <div className="row g-4">
-        {filteredBooks.map((book, index) => (
+        {filteredBooks.length!=0?filteredBooks.map((book, index) => (
           <div key={index} className="col-6 col-md-4 col-lg-3">
             <Card book={book} />
           </div>
-        ))}
+        )):
+        <>
+        <h5 className="text-center  fw-semibold mt-4">
+          No results found. Please try different keywords.
+        </h5>
+        </>}
       </div>
 
     </div>

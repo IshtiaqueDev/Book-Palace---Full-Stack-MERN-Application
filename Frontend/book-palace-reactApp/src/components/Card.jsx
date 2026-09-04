@@ -1,6 +1,8 @@
 import React from "react";
 
 const Card = ({ book }) => {
+  const imageSrc = book?.image?.url || book?.imageUrl || "https://placehold.co/600x900?text=Book+Cover";
+
   return (
     <>
     <a href={`/books/${book._id}`} className="text-reset text-decoration-none">
@@ -13,7 +15,7 @@ const Card = ({ book }) => {
     >
       {/* Book Image */}
       <img
-        src={book.imageUrl}
+        src={imageSrc}
         className="card-img-top"
         alt={book.title}
         style={{
@@ -37,10 +39,15 @@ const Card = ({ book }) => {
         
 
         {/* Category */}
+        <span className="d-flex justify-content-between">
         <span className="badge bg-warning text-dark align-self-start rounded-pill px-3 py-2 mb-3">
           {book.category}
         </span>
-
+        <button className="btn">
+          <i className="fa-regular fa-heart fs-4"></i>
+        </button>
+        </span>
+        
         {/* Rating & Reviews */}
         <div className="d-flex justify-content-between align-items-center mb-3">
           <span className="fw-semibold">

@@ -12,6 +12,7 @@ const BookInfo = () => {
   const [book, setBookInfo] = useState(null);
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
+  const imageSrc = book?.image?.url || book?.imageUrl || "https://placehold.co/600x900?text=Book+Cover";
 
   useEffect(() => {
     findBook();
@@ -21,7 +22,7 @@ const BookInfo = () => {
     if (!book?.category) return;
     try {
       let response = await axios.get(
-        `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/relatedbook/${book.category}`
+        `http://localhost:5000/books/relatedbook/${book.category}`
       );
       setRelatedBooks(response.data.relatedBooks);
     } catch (err) {
@@ -36,7 +37,7 @@ const BookInfo = () => {
   const findBook = async () => {
     try {
       let response = await axios.get(
-        `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/${id}`
+        `http://localhost:5000/books/${id}`
       );
       setBookInfo(response.data);
     } catch (err) {
@@ -46,7 +47,7 @@ const BookInfo = () => {
   const handleDelete = async () => {
     try {
       let response = await axios.delete(
-        `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/delete/${book._id}`,
+        `http://localhost:5000/books/delete/${book._id}`,
         {
           withCredentials: true,
         }
@@ -72,7 +73,7 @@ const BookInfo = () => {
             <div className="col-md-5 text-center">
               <div className="p-3">
                 <img
-                  src={book.imageUrl}
+                  src={imageSrc}
                   alt={book.title}
                   className="img-fluid rounded shadow"
                   style={{
@@ -130,11 +131,23 @@ const BookInfo = () => {
                     {book.description}
                   </p>
                 </div>
+{
+  console.log(book)
+}
+                <div className="b-3">{
+                 book.bookPDF && 
+                 <button className="btn btn-dark mb-3" onClick={book.bookPDF.url&&window.open(book.bookPDF.url,"_blank")}>Read Online</button>
+                }
+                </div>
+
+
                 <div className="mb-3">
                   <h5 className="text-muted mb-1">Posted By:</h5>
                   <p className="fs-5 mb-0">
                     {book.postedBy.username}
                   </p>
+                
+
                 </div>
                 {user && user._id == book.postedBy._id && (
                   <>
@@ -170,7 +183,10 @@ const BookInfo = () => {
             }}
           >
             {relatedBooks &&
-              relatedBooks.map((el) => (
+              relatedBooks.map((el) => {
+                const relatedImageSrc = el?.image?.url || el?.imageUrl || "https://placehold.co/600x900?text=Book+Cover";
+
+                return (
                 <a
                   href={`/books/${el._id}`}
                   key={el._id}
@@ -183,7 +199,7 @@ const BookInfo = () => {
                     }}
                   >
                     <img
-                      src={el.imageUrl}
+                      src={relatedImageSrc}
                       className="card-img-top"
                       alt={el.title}
                       style={{
@@ -199,7 +215,8 @@ const BookInfo = () => {
                     </div>
                   </div>
                 </a>
-              ))}
+                );
+              })}
           </div>
         </div>
       </div>
