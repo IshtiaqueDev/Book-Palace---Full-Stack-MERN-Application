@@ -4,7 +4,7 @@ const wrapAsync=require("../utils/wrapAsync");
 const router=express.Router();
 const {isBookOwner,isLoggedIn}=require("../utils/middlewares")
 const validateBook=require("../schemas/bookSchemaValidation");
-const {upload} = require("../cloudConfig");
+const upload = require("../cloudConfig");
 
 router.route("/").get(wrapAsync(
     bookController.getAllBooks
