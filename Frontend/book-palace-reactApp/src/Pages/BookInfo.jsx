@@ -22,7 +22,7 @@ const BookInfo = () => {
     if (!book?.category) return;
     try {
       let response = await axios.get(
-        `http://localhost:5000/books/relatedbook/${book.category}`
+        `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/relatedbook/${book.category}`
       );
       setRelatedBooks(response.data.relatedBooks);
     } catch (err) {
@@ -37,7 +37,7 @@ const BookInfo = () => {
   const findBook = async () => {
     try {
       let response = await axios.get(
-        `http://localhost:5000/books/${id}`
+        `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/${id}`
       );
       setBookInfo(response.data);
     } catch (err) {
@@ -47,7 +47,7 @@ const BookInfo = () => {
   const handleDelete = async () => {
     try {
       let response = await axios.delete(
-        `http://localhost:5000/books/delete/${book._id}`,
+        `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/books/delete/${book._id}`,
         {
           withCredentials: true,
         }

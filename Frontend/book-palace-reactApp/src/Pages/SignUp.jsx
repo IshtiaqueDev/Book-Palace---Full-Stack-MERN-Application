@@ -27,7 +27,7 @@
     
             console.log(userData);
             try{
-            let response=await axios.post("http://localhost:5000/user/signup",userData);
+            let response=await axios.post("https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/user/signup",userData);
             toast.success(response.data.message);
             navigate("/books");
         }catch(err){    

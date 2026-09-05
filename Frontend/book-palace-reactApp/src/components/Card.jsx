@@ -22,7 +22,7 @@ const Card = ({ book }) => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/user/favourites/${book._id}`,
+        `https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/user/favourites/${book._id}`,
         {},
         { withCredentials: true }
       );

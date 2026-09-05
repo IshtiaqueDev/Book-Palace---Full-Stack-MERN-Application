@@ -9,7 +9,7 @@ const FavouriteBooks = () => {
   useEffect(() => {
     const getFavouriteBooks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/user/favourites", {
+        const response = await axios.get("https://book-palace-full-stack-mern-application-production-1d9c.up.railway.app/user/favourites", {
           withCredentials: true,
         });
         setBooks(response.data.favouriteBooks);
