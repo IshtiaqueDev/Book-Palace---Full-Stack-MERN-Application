@@ -50,16 +50,11 @@ const filteredBooks = books.filter((book) => {
 
       {/* Books */}
       <div className="row g-4">
-        {filteredBooks.length==0 && !searchParams.get("search")?filteredBooks.map((book, index) => (
+        filteredBooks.map((book, index) => (
           <div key={index} className="col-6 col-md-4 col-lg-3">
             <Card book={book} />
           </div>
-        )):
-        <>
-        <h5 className="text-center  fw-semibold mt-4">
-          No results found. Please try different keywords.
-        </h5>
-        </>}
+        ))
       </div>
 
     </div>
