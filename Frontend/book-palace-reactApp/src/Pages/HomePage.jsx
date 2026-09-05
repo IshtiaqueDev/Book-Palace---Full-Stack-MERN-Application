@@ -50,7 +50,7 @@ const filteredBooks = books.filter((book) => {
 
       {/* Books */}
       <div className="row g-4">
-        {filteredBooks.length!=0 && books.length!=0?filteredBooks.map((book, index) => (
+        {filteredBooks.length!=0 && books.length!=0&&!searchParams?filteredBooks.map((book, index) => (
           <div key={index} className="col-6 col-md-4 col-lg-3">
             <Card book={book} />
           </div>
