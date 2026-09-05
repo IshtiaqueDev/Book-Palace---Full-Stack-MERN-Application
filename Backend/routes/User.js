@@ -2,6 +2,7 @@ const express=require("express");
 const wrapAsync=require("../utils/wrapAsync");
 const router=express.Router();
 const UserController=require("../controllers/user");
+const {isLoggedIn}=require("../utils/middlewares");
 
 router.route("/signup").post(wrapAsync(
     UserController.signUp
@@ -22,6 +23,14 @@ router.get("/me",(req,res)=>{
     user:req.user||null
 });
 })
+
+router.put("/favourites/:bookId",isLoggedIn,wrapAsync(
+    UserController.toggleFavourite
+));
+
+router.get("/favourites",isLoggedIn,wrapAsync(
+    UserController.getFavouriteBooks
+));
 
 module.exports=router;
 

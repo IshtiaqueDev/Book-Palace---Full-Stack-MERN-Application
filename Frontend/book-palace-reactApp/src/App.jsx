@@ -14,6 +14,7 @@ const BookInfo = lazy(() => import("./Pages/BookInfo"));
 const EditPage = lazy(() => import("./Pages/EditPage"));
 const ErrorPage = lazy(() => import("./Pages/ErrorPage"));
 const MyBooks=lazy(()=>import("./Pages/MyBooks"))
+const FavouriteBooks=lazy(()=>import("./Pages/FavouriteBooks"))
 
 function App() {
 
@@ -37,6 +38,11 @@ function App() {
       <Route path='/books/mybooks' element={
        <ProtectedRoute>
          <MyBooks/>
+       </ProtectedRoute>
+        }></Route>
+      <Route path='/books/favourites' element={
+       <ProtectedRoute>
+         <FavouriteBooks/>
        </ProtectedRoute>
         }></Route>
       <Route path='books/edit/:id' element={

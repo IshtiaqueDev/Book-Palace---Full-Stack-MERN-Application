@@ -43,7 +43,7 @@ export const UserProvider = ({ children }) => {
 useEffect(() => {
     const handleAuthChange = () => {
     axios.get("http://localhost:5000/user/me", {
-        withCredentials: tru
+        withCredentials: true
         })
         .then((response) => {
             setUser(response.data.user);

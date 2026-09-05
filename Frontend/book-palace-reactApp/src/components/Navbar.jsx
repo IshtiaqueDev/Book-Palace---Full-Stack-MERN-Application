@@ -86,12 +86,12 @@ const Navbar = () => {
         >
 
           <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-4">
-           <li className="nav-item">
+            <li className="nav-item">
               <Link
                 className="nav-link fw-medium"
-                to="/books/addFavourite"
+                to="/books/favourites"
               >
-                My Favourite Books
+                Favourite Books
               </Link>
             </li>
            

@@ -1,7 +1,37 @@
 import React from "react";
+import { useContext } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { UserContext } from "../context/UserProvider";
 
 const Card = ({ book }) => {
+  const { user, setUser } = useContext(UserContext);
   const imageSrc = book?.image?.url || book?.imageUrl || "https://placehold.co/600x900?text=Book+Cover";
+  const isFavourite = user?.favouriteBooks?.some(
+    (favouriteBook) => (favouriteBook._id || favouriteBook).toString() === book._id
+  );
+
+  const toggleFavourite = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!user) {
+      toast.info("Please log in to save favourites");
+      return;
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/user/favourites/${book._id}`,
+        {},
+        { withCredentials: true }
+      );
+      setUser(response.data.user);
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Could not update favourite");
+    }
+  };
 
   return (
     <>
@@ -43,8 +73,13 @@ const Card = ({ book }) => {
         <span className="badge bg-warning text-dark align-self-start rounded-pill px-3 py-2 mb-3">
           {book.category}
         </span>
-        <button className="btn">
-          <i className="fa-regular fa-heart fs-4"></i>
+        <button
+          type="button"
+          className="btn"
+          onClick={toggleFavourite}
+          aria-label={isFavourite ? "Remove from favourites" : "Add to favourites"}
+        >
+          <i className={`${isFavourite ? "fa-solid text-danger" : "fa-regular"} fa-heart fs-4`}></i>
         </button>
         </span>
         
