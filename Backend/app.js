@@ -17,8 +17,7 @@ app.set("trust proxy", 1);
 connectDB();
 
 const corsOptions = {
-//   origin: "https://book-palace-full-stack-mern-applica.vercel.app",
-  origin: "http://localhost:5173",
+  origin: "https://book-palace-full-stack-mern-applica.vercel.app",
   credentials: true
 };
 
