@@ -136,7 +136,7 @@ const BookInfo = () => {
 }
                 <div className="b-3">{
                  book.bookPDF && 
-                 <button className="btn btn-dark mb-3" onClick={book.bookPDF.url&&window.open(book.bookPDF.url,"_blank")}>Read Online</button>
+                 <button className="btn btn-dark mb-3" onClick={()=>{book.bookPDF.url&&window.open(book.bookPDF.url,"_blank")}}>Read Online</button>
                 }
                 </div>
 
