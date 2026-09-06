@@ -18,14 +18,18 @@ The project was built to practice and demonstrate real-world **MERN stack develo
 
 ### 📖 Book Management
 
-* Browse all available books
-* View detailed information about a book
-* Add new books
-* Edit existing books
-* Delete books
-* View related books
-* Organize books by categories
-* Search and sort books
+- Browse all available books
+- View detailed book information
+- Add new books
+- Edit existing books
+- Delete owned books
+- View related books
+- Organize books by categories
+- Search books
+- Sort books
+- Display book information including author, description, category and other details
+- Upload book images
+- Upload book PDF files
 
 ### ⭐ Reviews & Ratings
 
@@ -36,21 +40,28 @@ The project was built to practice and demonstrate real-world **MERN stack develo
 
 ### 🔐 Authentication & Authorization
 
-* User registration
-* User login/logout
-* Session-based authentication
-* Protected routes
-* Authorization for book management
-* Users can manage their own book listings
+-User registration
+- User login
+- User logout
+- Session-based authentication
+- Persistent authentication using cookies
+- Authentication state management
+- Protected backend routes
+- Protected frontend routes
+- Authorization for book operations
+- Users can manage their own book listings
 
 ### 🛡️ Backend Security & Validation
 
-* Joi request validation
-* Authentication middleware
-* Authorization middleware
-* Express middleware
-* Secure session handling
-* Protected API routes
+- Passport.js authentication
+- Express Session
+- Authentication middleware
+- Authorization middleware
+- Joi request validation
+- Protected API endpoints
+- Error handling middleware
+- Secure session configuration
+- CORS configuration for frontend/backend communication
 
 ### 🎨 Frontend
 
@@ -245,8 +256,6 @@ SESSION_SECRET=your_session_secret
 ```
 
 Add any additional environment variables required by your project.
-
-> ⚠️ Never commit your `.env` file to GitHub.
 
 ---
 
