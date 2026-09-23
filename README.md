@@ -13,7 +13,7 @@ Users can browse available books, view detailed information, add their own books
 The project was built to practice and demonstrate real-world **MERN stack development**, including REST APIs, authentication, authorization, database relationships, validation, sessions, and responsive frontend development.
 
 ---
-
+ 
 ## ✨ Features
 
 ### 📖 Book Management
