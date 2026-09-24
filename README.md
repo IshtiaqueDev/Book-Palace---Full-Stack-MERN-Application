@@ -21,7 +21,7 @@ The project was built to practice and demonstrate real-world **MERN stack develo
 - Browse all available books
 - View detailed book information
 - Add new books
-- Edit existing books
+- Edit existing books (Only Owner)
 - Delete owned books
 - View related books
 - Organize books by categories
